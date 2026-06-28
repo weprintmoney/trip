@@ -80,7 +80,7 @@ body {
 
 .hero-title {
   font-family: var(--font-display);
-  font-size: clamp(3rem, 10vw, 6rem);
+  font-size: clamp(1.75rem, 5vw, 3.5rem);
   line-height: 1.1;
   background: linear-gradient(135deg, #fff 0%, #c4bff7 60%, var(--accent2) 100%);
   -webkit-background-clip: text;

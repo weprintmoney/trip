@@ -77,7 +77,6 @@ const TRIP = {
 
 document.getElementById("trip-name").textContent   = TRIP.name;
 document.getElementById("trip-dates").textContent  = TRIP.dates;
-document.getElementById("trip-crew").textContent   = TRIP.crew;
 document.getElementById("stat-days").textContent   = TRIP.stats.days;
 document.getElementById("stat-cities").textContent = TRIP.stats.cities;
 document.getElementById("stat-people").textContent = TRIP.stats.people;
