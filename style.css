@@ -498,6 +498,227 @@ body {
   color: var(--muted);
 }
 
+/* ─── Timeshifter Section ─── */
+.timeshifter-section {
+  padding: 4rem 0 3rem;
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+}
+
+.ts-inner {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.ts-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 1.25rem 0 2rem;
+}
+
+.ts-leg {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 1.25rem;
+  overflow: hidden;
+}
+
+.ts-leg-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.1rem 1.5rem;
+  cursor: pointer;
+  user-select: none;
+  background: var(--surface2);
+  list-style: none;
+}
+
+.ts-leg-header::-webkit-details-marker { display: none; }
+
+.ts-leg-title {
+  flex: 1;
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--text);
+}
+
+.ts-badge {
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.2rem 0.65rem;
+  border-radius: 100px;
+  background: rgba(248,113,113,0.15);
+  color: #f87171;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  flex-shrink: 0;
+}
+
+.ts-leg-body {
+  padding: 1.25rem 1.5rem;
+  border-top: 1px solid var(--border);
+}
+
+.ts-start-note {
+  font-size: 0.82rem;
+  color: var(--muted);
+  margin-bottom: 1.25rem;
+  font-style: italic;
+}
+
+.ts-days {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin-bottom: 1.5rem;
+}
+
+.ts-day {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.85rem 1rem;
+  background: var(--surface2);
+  border-radius: 10px;
+  border: 1px solid var(--border);
+}
+
+.ts-day-done {
+  border-color: rgba(74,222,128,0.3);
+  background: rgba(74,222,128,0.05);
+}
+
+.ts-day-label {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.ts-day-date {
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--text);
+  flex-shrink: 0;
+}
+
+.ts-day-loc {
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.ts-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+/* ─── Timeshifter chips ─── */
+.ts-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 100px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border: 1px solid transparent;
+  line-height: 1.4;
+}
+
+.ts-chip em {
+  font-style: normal;
+  opacity: 0.7;
+  font-size: 0.7rem;
+}
+
+.ts-chip.light-soft      { background: rgba(255,215,0,0.12);    color: #ffd700; border-color: rgba(255,215,0,0.25); }
+.ts-chip.light-bright    { background: rgba(255,140,0,0.15);    color: #fb923c; border-color: rgba(255,140,0,0.3); }
+.ts-chip.light-avoid     { background: rgba(30,30,60,0.7);      color: #7c8aaa; border-color: rgba(80,80,120,0.4); }
+.ts-chip.caffeine-open   { background: rgba(160,100,50,0.15);   color: #c8a97a; border-color: rgba(160,100,50,0.3); }
+.ts-chip.caffeine-closed { background: rgba(100,100,100,0.12);  color: #888;    border-color: rgba(120,120,120,0.25); }
+.ts-chip.sleep           { background: rgba(30,58,138,0.35);    color: #93c5fd; border-color: rgba(59,130,246,0.3); }
+.ts-chip.nap             { background: rgba(96,165,250,0.12);   color: #7dd3fc; border-color: rgba(96,165,250,0.25); }
+.ts-chip.melatonin       { background: rgba(139,92,246,0.18);   color: #c4b5fd; border-color: rgba(139,92,246,0.3); }
+
+/* ─── Notes + Rules ─── */
+.ts-notes {
+  padding: 0.85rem 1rem;
+  background: rgba(248,113,113,0.05);
+  border-left: 3px solid #f87171;
+  border-radius: 0 8px 8px 0;
+}
+
+.ts-notes-title, .ts-rules-title {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+}
+
+.ts-notes ul, .ts-rules ol {
+  padding-left: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.ts-notes li, .ts-rules li {
+  font-size: 0.82rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.ts-rules {
+  margin-top: 1.5rem;
+  padding: 1rem 1.25rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+/* ─── Pack List ─── */
+.ts-pack {
+  margin-top: 1.25rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.ts-pack-title {
+  padding: 1rem 1.25rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text);
+  cursor: pointer;
+  user-select: none;
+  background: var(--surface2);
+  list-style: none;
+}
+
+.ts-pack-title::-webkit-details-marker { display: none; }
+
+.ts-pack-list {
+  padding: 1rem 1.25rem 1rem 2.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-top: 1px solid var(--border);
+}
+
+.ts-pack-list li {
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
 /* ─── Day note ─── */
 .day-note {
   margin-bottom: 1.25rem;
