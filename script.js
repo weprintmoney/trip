@@ -214,6 +214,44 @@ function offsetLabel(tz) {
   return `UTC${sign}${h}${m ? `:${String(m).padStart(2,"0")}` : ""}`;
 }
 
+// Build a gradient where the bright zone (8am–6pm) is anchored to LOCAL time,
+// but the x-axis of the bar represents Austin clock time.
+// offsetDiffMins = zone's UTC offset minus Austin's UTC offset.
+function tzGradient(isYou, offsetDiffMins) {
+  const c = isYou
+    ? { night: "#8abb29", shoulder: "#a5df3b", day: "#b8ff41" }
+    : { night: "#4b4c4d", shoulder: "#575b5c", day: "#6b7071" };
+
+  function colorAt(localMins) {
+    const m = ((localMins % 1440) + 1440) % 1440;
+    if (m < 360 || m >= 1320) return c.night;
+    if (m < 480 || m >= 1080) return c.shoulder;
+    return c.day;
+  }
+
+  // Convert local time (minutes from local midnight) to Austin-bar position (0–1440)
+  function toBar(localMins) {
+    return ((localMins - offsetDiffMins) % 1440 + 1440) % 1440;
+  }
+
+  // Austin midnight corresponds to local time = offsetDiffMins
+  const startColor = colorAt(offsetDiffMins);
+
+  // At each local time boundary, add a hard stop (two points, same position, different color)
+  let pts = [{ pos: 0, color: startColor }];
+  for (const lb of [360, 480, 1080, 1320]) {
+    const barPos = toBar(lb);
+    pts.push({ pos: barPos, color: colorAt(lb - 1) }); // color just before boundary
+    pts.push({ pos: barPos, color: colorAt(lb + 1) }); // color just after boundary
+  }
+  pts.push({ pos: 1440, color: startColor });
+  pts.sort((a, b) => a.pos - b.pos);
+
+  return "linear-gradient(to right, " +
+    pts.map(p => `${p.color} ${(p.pos / 1440 * 100).toFixed(2)}%`).join(", ") +
+    ")";
+}
+
 (function initTimezoneWidget() {
   const LABEL_W = 200;
   const widget  = document.getElementById("tz-widget");
@@ -222,6 +260,8 @@ function offsetLabel(tz) {
   const timeEl  = document.getElementById("tz-cursor-time");
   const rowsEl  = document.getElementById("tz-rows");
 
+  const austinOff = utcOffset("America/Chicago");
+
   rowsEl.innerHTML = ZONES.map((z, i) => `
     <div class="tz-row">
       <div class="tz-label">
@@ -229,12 +269,18 @@ function offsetLabel(tz) {
         <span class="tz-offset">${offsetLabel(z.tz)}</span>
       </div>
       <div class="tz-bar-wrap" id="tz-bw-${i}">
-        <div class="tz-bar ${z.isYou ? "grad-local" : "grad-default"}"></div>
+        <div class="tz-bar" id="tz-bar-${i}"></div>
         <span class="tz-row-time" id="tz-rt-${i}"></span>
       </div>
     </div>`).join("");
 
-  const austinOff = utcOffset("America/Chicago");
+  // Apply per-zone gradient now that DOM is built
+  ZONES.forEach((z, i) => {
+    const bar = document.getElementById(`tz-bar-${i}`);
+    const offsetDiff = utcOffset(z.tz) - austinOff;
+    bar.style.background = tzGradient(z.isYou, offsetDiff);
+  });
+
   let austinMins = 720;
 
   function barW() {
