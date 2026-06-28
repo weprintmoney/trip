@@ -31,6 +31,7 @@ const TRIP = {
           time: "8:00 PM (Jul 2)",
           name: "🏆 FIFA World Cup 2026 — Switzerland vs. Algeria",
           detail: "Round of 32 · Match 85 · BC Place Stadium",
+          link: "https://www.fifa.com/en/match-centre/match/17/285023/289287/400021527",
           tag: "event",
         },
       ],
@@ -43,6 +44,7 @@ const TRIP = {
       blurb: "France's capital and one of the world's great cities — art, food, history, and architecture at every turn. Home to the Louvre, the Seine, and some of the best food on Earth.",
       note: "🌡️ Feels like 93°F · Some humidity bump, rain likely — pack compact umbrella.",
       address: "Hôtel du Louvre, Paris",
+      link: "https://www.hyatt.com/unbound-collection/en-US/paraz-hotel-du-louvre",
       arrival:   [{ date: "Jul 5",  num: "DL 8676", route: "Vancouver → Paris" }],
       departure: [
         { date: "Jul 10", num: "LH 1051", route: "Paris → Frankfurt" },
@@ -54,11 +56,13 @@ const TRIP = {
           name: "Couple's Photo Session",
           detail: "Hosted by Jon · +11 others · 1.25 hours",
           tag: "activity",
+
         },
         {
           time: "10:00 PM (Thu Jul 9)",
           name: "Dinner at Girafe",
           detail: "2 people · Reservation confirmed",
+          link: "https://girafe-restaurant.com/paris/",
           tag: "food",
         },
       ],
@@ -104,6 +108,7 @@ const TRIP = {
       blurb: "The British capital — a global hub of history, culture, and some genuinely excellent food. Buckingham Palace, the Tate, Hyde Park, and the best of British all within reach.",
       note: "🌡️ Feels like 82°F · Drizzly — ~10 rain days avg in July. Bring umbrella + one smart dinner outfit.",
       address: "Mandarin Oriental Hyde Park, London",
+      link: "https://www.mandarinoriental.com/en/london/hyde-park",
       arrival:   [{ date: "Jul 16", num: "BA 2717", route: "Funchal → London" }],
       departure: [
         { date: "Jul 22", num: "TK 1972", route: "London → Istanbul" },
@@ -114,6 +119,7 @@ const TRIP = {
         {
           time: "8:45 PM (Sat Jul 18)",
           name: "Dinner at Evelyn's Table",
+          link: "https://www.theblueposts.co.uk/evelyns-table/",
           tag: "food",
         },
       ],
@@ -181,12 +187,15 @@ TRIP.stops.forEach((stop, i) => {
   const lodgingImg = stop.photo
     ? `<img class="card-img" src="${stop.photo}" alt="${stop.title} accommodation" loading="lazy" />`
     : `<div class="card-img-placeholder"><span>🏨</span></div>`;
+  const lodgingFooter = stop.link
+    ? `<div class="lodging-name">📍 ${stop.address || "Accommodation TBD"}<a class="card-link" href="${stop.link}" target="_blank" rel="noopener">Visit website ↗</a></div>`
+    : `<div class="lodging-name">📍 ${stop.address || "Accommodation TBD"}</div>`;
   const stayingHTML = `
     <div class="stop-section">
       <div class="stop-section-label">Staying</div>
       <div class="lodging-card">
         ${lodgingImg}
-        <div class="lodging-name">📍 ${stop.address || "Accommodation TBD"}</div>
+        ${lodgingFooter}
       </div>
     </div>`;
 
@@ -203,7 +212,10 @@ TRIP.stops.forEach((stop, i) => {
               ${ev.time ? `<div class="activity-time">${ev.time}</div>` : ""}
               <div class="activity-name">${ev.name}</div>
               ${ev.detail ? `<div class="activity-detail">${ev.detail}</div>` : ""}
-              <span class="event-tag tag-${ev.tag}">${capitalize(ev.tag)}</span>
+              <div class="activity-footer">
+                <span class="event-tag tag-${ev.tag}">${capitalize(ev.tag)}</span>
+                ${ev.link ? `<a class="card-link" href="${ev.link}" target="_blank" rel="noopener">Visit website ↗</a>` : ""}
+              </div>
             </div>
           </div>`;
       }).join("")
