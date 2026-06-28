@@ -181,7 +181,7 @@ function capitalize(str) {
 // ─── TIMEZONE WIDGET ──────────────────────────────────────────────────────
 
 const ZONES = [
-  { city: "Austin TX",        flag: "🇺🇸", tz: "America/Chicago",    isYou: true },
+  { city: "Austin, Texas",    flag: "🇺🇸", tz: "America/Chicago",    isYou: true },
   { city: "New York / Cyborg",flag: "🇺🇸", tz: "America/New_York" },
   { city: "Vancouver",        flag: "🇨🇦", tz: "America/Vancouver" },
   { city: "Paris",            flag: "🇫🇷", tz: "Europe/Paris" },
