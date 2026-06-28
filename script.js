@@ -680,9 +680,9 @@ const TIMESHIFTER = {
 
   const GLOBE_STOPS = [
     { name: "Austin",    flag: "🏠",   coords: [ -97.74,  30.27] },
-    { name: "Vancouver", flag: "🇨🇦", coords: [-123.12,  49.28] },
+    { name: "Vancouver, BC", flag: "🇨🇦", coords: [-123.12,  49.28] },
     { name: "Paris",     flag: "🇫🇷", coords: [   2.35,  48.86] },
-    { name: "Funchal",   flag: "🇵🇹", coords: [ -16.92,  32.67] },
+    { name: "Madeira",   flag: "🇵🇹", coords: [ -16.92,  32.67] },
     { name: "London",    flag: "🇬🇧", coords: [  -0.13,  51.51] },
     { name: "Phu Quoc",  flag: "🇻🇳", coords: [ 103.98,  10.29] },
     { name: "Da Nang",   flag: "🇻🇳", coords: [ 108.20,  16.05] },
@@ -697,6 +697,8 @@ const TIMESHIFTER = {
     arcs.push(Array.from({ length: STEPS + 1 }, (_, t) => interp(t / STEPS)));
   }
   const totalPts = arcs.reduce((s, a) => s + a.length, 0);
+  // Cumulative point offset at the start of each arc
+  const arcOffsets = arcs.map((_, i) => arcs.slice(0, i).reduce((s, a) => s + a.length, 0));
 
   // Size
   const size = Math.min(container.clientWidth || 540, 540);
@@ -780,23 +782,27 @@ const TIMESHIFTER = {
   });
 
   // ── Animation state ──
-  let drawProgress = 0;   // 0 → totalPts
-  let drawDone = false;
+  let drawProgress = 0;   // 0 → totalPts, consumed by render()
   let rotLambda = 97.74;
   let rotPhi = -30.27;
   let dragging = false;
-  const DRAW_MS = 13000;
-  let startTime = null;
 
-  // Target rotation: follow the drawing cursor
-  function cursorCoords(progress01) {
-    let idx = Math.floor(progress01 * totalPts);
-    let cum = 0;
-    for (const arc of arcs) {
-      if (idx < cum + arc.length) return arc[idx - cum];
-      cum += arc.length;
-    }
-    return GLOBE_STOPS[GLOBE_STOPS.length - 1].coords;
+  // Per-arc state machine: draw one arc → pause 3s at destination → next arc
+  const ARC_MS       = 2200;  // ms to draw each arc
+  const STOP_PAUSE   = 3000;  // ms to hold at each stop
+  const LOOP_PAUSE   = 1500;  // ms to hold at Austin before resetting
+  let arcIdx      = 0;        // which arc is being drawn
+  let phase       = 'drawing'; // 'drawing' | 'pausing'
+  let phaseStart  = null;
+
+  function rotateToward(lng, lat, factor) {
+    const tLambda = -lng;
+    const tPhi    = Math.max(-50, Math.min(50, -lat * 0.55));
+    let dLambda   = tLambda - rotLambda;
+    while (dLambda >  180) dLambda -= 360;
+    while (dLambda < -180) dLambda += 360;
+    rotLambda += dLambda * factor;
+    rotPhi    += (tPhi - rotPhi) * factor;
   }
 
   function visibleHemisphere(coords) {
@@ -839,36 +845,48 @@ const TIMESHIFTER = {
 
   // ── Main loop ──
   d3.timer(elapsed => {
-    if (!drawDone) {
-      if (!startTime) startTime = elapsed;
-      const t = Math.min((elapsed - startTime) / DRAW_MS, 1);
-      const eased = d3.easeCubicInOut(t);
-      drawProgress = eased * totalPts;
+    if (!phaseStart) phaseStart = elapsed;
 
+    if (phase === 'drawing') {
+      const t     = Math.min((elapsed - phaseStart) / ARC_MS, 1);
+      const eased = d3.easeCubicInOut(t);
+      const arc   = arcs[arcIdx];
+
+      drawProgress = arcOffsets[arcIdx] + eased * arc.length;
+
+      // Camera follows the drawing tip through the current arc
       if (!dragging) {
-        const cursor = cursorCoords(eased);
-        const tLambda = -cursor[0];
-        const tPhi    = Math.max(-50, Math.min(50, -cursor[1] * 0.55));
-        // Normalize delta to [-180, 180] so the globe always rotates the
-        // correct direction, including when the arc crosses the antimeridian
-        // (e.g. Da Nang → Austin going east across the Pacific).
-        let dLambda = tLambda - rotLambda;
-        while (dLambda >  180) dLambda -= 360;
-        while (dLambda < -180) dLambda += 360;
-        rotLambda += dLambda * 0.015;
-        rotPhi    += (tPhi - rotPhi) * 0.015;
+        const pt = arc[Math.min(Math.floor(eased * arc.length), arc.length - 1)];
+        rotateToward(pt[0], pt[1], 0.015);
       }
 
       if (t >= 1) {
-        drawDone     = true;
-        drawProgress = totalPts;
-        setTimeout(() => {
-          drawDone     = false;
+        drawProgress = arcOffsets[arcIdx] + arc.length;
+        phase        = 'pausing';
+        phaseStart   = elapsed;
+      }
+
+    } else {
+      // Pausing — camera glides to rest on the destination stop
+      const dest     = GLOBE_STOPS[arcIdx + 1];
+      if (!dragging) rotateToward(dest.coords[0], dest.coords[1], 0.025);
+
+      const isLast   = arcIdx === arcs.length - 1;
+      const holdMs   = isLast ? LOOP_PAUSE : STOP_PAUSE;
+
+      if (elapsed - phaseStart >= holdMs) {
+        if (isLast) {
+          // Full reset
+          arcIdx       = 0;
           drawProgress = 0;
-          startTime    = null;
-        }, 1000);
+        } else {
+          arcIdx++;
+        }
+        phase      = 'drawing';
+        phaseStart = elapsed;
       }
     }
+
     render();
   });
 
