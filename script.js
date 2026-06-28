@@ -112,8 +112,8 @@ const TRIP = {
       ],
       departure: [{ date: "Jul 16", num: "BA 2717", route: "Funchal → London",   time: "12:20 PM WEST" }],
       events: [
-        { time: "3:00 PM",      name: "Check-in",             tag: "lodging" },
-        { time: "6:00–7:00 PM", name: "Massage at the house", photo: "images/madeira-massage.avif", tag: "activity" },
+        { time: "3:00 PM (Thu Jul 10)",      name: "Check-in",             tag: "lodging" },
+        { time: "6:00–7:00 PM (Thu Jul 10)", name: "Massage at the house", photo: "images/madeira-massage.avif", tag: "activity" },
         {
           time: "6:00 AM–1:00 PM (Tue Jul 14)",
           name: "Sunrise Tour of Madeira",
