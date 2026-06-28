@@ -55,6 +55,18 @@ const TRIP = {
           detail: "Hosted by Jon · +11 others · 1.25 hours",
           tag: "activity",
         },
+        {
+          time: "9:15 PM (Thu Jul 9)",
+          name: "Eiffel Tower",
+          detail: "Sunset + first sparkle show at 10:00 PM",
+          tag: "activity",
+        },
+        {
+          time: "10:00 PM (Thu Jul 9)",
+          name: "Dinner at Girafe",
+          detail: "2 people · Reservation confirmed",
+          tag: "food",
+        },
       ],
     },
     {
