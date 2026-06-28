@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The Trip ✈️</title>
+  <title>Summer 2026 ✈️</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
@@ -15,12 +15,12 @@
   <header class="hero">
     <div class="hero-overlay"></div>
     <div class="hero-content">
-      <p class="hero-label">📍 Destination</p>
-      <h1 class="hero-title" id="trip-name">The Trip</h1>
-      <p class="hero-dates" id="trip-dates">July 4 – July 10, 2026</p>
+      <p class="hero-label">✈️ 7 Cities · 36 Days</p>
+      <h1 class="hero-title" id="trip-name">Summer 2026</h1>
+      <p class="hero-dates" id="trip-dates">Jun 26 – Aug 1, 2026</p>
       <div class="hero-crew">
         <span class="crew-dot"></span>
-        <span id="trip-crew">You + the crew</span>
+        <span id="trip-crew">Charlcye + Eiman</span>
       </div>
     </div>
     <div class="hero-scroll-hint">
@@ -32,27 +32,37 @@
   <!-- QUICK STATS -->
   <section class="stats-bar">
     <div class="stat">
-      <span class="stat-num" id="stat-days">7</span>
+      <span class="stat-num" id="stat-days">36</span>
       <span class="stat-label">Days</span>
     </div>
     <div class="stat-divider"></div>
     <div class="stat">
-      <span class="stat-num" id="stat-people">4</span>
-      <span class="stat-label">People</span>
+      <span class="stat-num" id="stat-cities">7</span>
+      <span class="stat-label">Cities</span>
     </div>
     <div class="stat-divider"></div>
     <div class="stat">
-      <span class="stat-num" id="stat-activities">12</span>
-      <span class="stat-label">Activities</span>
+      <span class="stat-num" id="stat-people">2</span>
+      <span class="stat-label">People</span>
+    </div>
+  </section>
+
+  <!-- BOOKING PRIORITY -->
+  <section class="booking-section">
+    <div class="booking-inner">
+      <h3 class="booking-heading">⚡ Book These First</h3>
+      <div class="booking-list" id="booking-priority">
+        <!-- rendered by script.js -->
+      </div>
     </div>
   </section>
 
   <!-- ITINERARY -->
   <main class="itinerary">
-    <h2 class="section-title">The Plan</h2>
+    <h2 class="section-title">The Itinerary</h2>
 
     <div class="days" id="days-container">
-      <!-- Days are rendered by script.js from TRIP_DATA -->
+      <!-- Stops are rendered by script.js -->
     </div>
   </main>
 
@@ -81,7 +91,7 @@
 
   <!-- FOOTER -->
   <footer class="footer">
-    <p>Made with ❤️ for the crew</p>
+    <p>Made with ❤️ for two</p>
   </footer>
 
   <script src="script.js"></script>

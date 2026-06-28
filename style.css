@@ -230,15 +230,14 @@ body {
 .day-number {
   width: 44px;
   height: 44px;
-  background: var(--accent);
+  background: var(--surface2);
+  border: 1px solid var(--border);
   border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 700;
-  font-size: 1rem;
+  font-size: 1.5rem;
   flex-shrink: 0;
-  color: #fff;
 }
 
 .day-header-text {
@@ -352,15 +351,65 @@ body {
 .tag-travel { background: rgba(74,222,128,0.15); color: #4ade80; }
 .tag-lodging { background: rgba(248,113,113,0.15); color: #f87171; }
 .tag-free { background: rgba(148,163,184,0.15); color: #94a3b8; }
+.tag-event { background: rgba(251,191,36,0.15); color: #fbbf24; }
 
 /* ─── Day note ─── */
 .day-note {
-  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
   padding: 0.85rem 1rem;
   background: rgba(124,111,247,0.07);
   border-left: 3px solid var(--accent);
   border-radius: 0 8px 8px 0;
   font-size: 0.875rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* ─── Booking Priority ─── */
+.booking-section {
+  background: rgba(251,191,36,0.04);
+  border-bottom: 1px solid var(--border);
+  padding: 1.5rem;
+}
+
+.booking-inner {
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+.booking-heading {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #fbbf24;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.75rem;
+}
+
+.booking-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.booking-item {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  font-size: 0.875rem;
+}
+
+.booking-item.urgency-high .booking-name {
+  font-weight: 600;
+  color: #fbbf24;
+}
+
+.booking-item.urgency-med .booking-name {
+  font-weight: 600;
+  color: var(--accent2);
+}
+
+.booking-detail {
   color: var(--muted);
 }
 
