@@ -266,7 +266,7 @@ function tzGradient(isYou, offsetDiffMins) {
   rowsEl.innerHTML = sortedZones.map((z, i) => `
     <div class="tz-row">
       <div class="tz-label">
-        <span class="tz-name">${z.flag} ${z.city}${z.isYou ? " (you)" : ""}</span>
+        <span class="tz-name">${z.flag} ${z.city}</span>
         <span class="tz-offset">${offsetLabel(z.tz)}</span>
       </div>
       <div class="tz-bar-wrap" id="tz-bw-${i}">
