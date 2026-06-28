@@ -169,81 +169,127 @@ if (bookingContainer) {
 // ─── TIMEZONE WIDGET ──────────────────────────────────────────────────────
 
 const ZONES = [
-  { city: "Austin",    tz: "America/Chicago",     isYou: true },
-  { city: "New York / Cyborg", tz: "America/New_York" },
-  { city: "Vancouver", tz: "America/Vancouver" },
-  { city: "Paris",     tz: "Europe/Paris" },
-  { city: "Madeira",   tz: "Atlantic/Madeira" },
-  { city: "London",    tz: "Europe/London" },
-  { city: "Phu Quoc",  tz: "Asia/Ho_Chi_Minh" },
-  { city: "Da Nang",   tz: "Asia/Ho_Chi_Minh" },
+  { city: "Austin TX",        flag: "🇺🇸", tz: "America/Chicago",    isYou: true },
+  { city: "New York / Cyborg",flag: "🇺🇸", tz: "America/New_York" },
+  { city: "Vancouver",        flag: "🇨🇦", tz: "America/Vancouver" },
+  { city: "Paris",            flag: "🇫🇷", tz: "Europe/Paris" },
+  { city: "Madeira",          flag: "🇵🇹", tz: "Atlantic/Madeira" },
+  { city: "London",           flag: "🇬🇧", tz: "Europe/London" },
+  { city: "Phu Quoc",         flag: "🇻🇳", tz: "Asia/Ho_Chi_Minh" },
+  { city: "Da Nang",          flag: "🇻🇳", tz: "Asia/Ho_Chi_Minh" },
 ];
 
-function callStatus(hour) {
-  if (hour >= 8 && hour < 12)  return { label: "Morning ✓",  cls: "status-great" };
-  if (hour >= 12 && hour < 18) return { label: "Afternoon ✓", cls: "status-great" };
-  if (hour >= 18 && hour < 22) return { label: "Evening ✓",  cls: "status-ok" };
-  return { label: "Do not disturb", cls: "status-bad" };
-}
-
-function formatMinutes(totalMinutes) {
-  const h24 = Math.floor(totalMinutes / 60) % 24;
-  const min = totalMinutes % 60;
-  const ampm = h24 < 12 ? "AM" : "PM";
+function fmtMins(m) {
+  const h24 = ((Math.floor(m / 60) % 24) + 24) % 24;
+  const min = ((m % 60) + 60) % 60;
   const h12 = h24 % 12 === 0 ? 12 : h24 % 12;
-  return `${h12}:${String(min).padStart(2, "0")} ${ampm}`;
+  return `${h12}:${String(min).padStart(2,"0")} ${h24 < 12 ? "AM" : "PM"}`;
 }
 
-function getUTCOffset(tz) {
+function utcOffset(tz) {
   const now = new Date();
-  const tzDate = new Date(now.toLocaleString("en-US", { timeZone: tz }));
-  const utcDate = new Date(now.toLocaleString("en-US", { timeZone: "UTC" }));
-  return (tzDate - utcDate) / 60000;
+  const a = new Date(now.toLocaleString("en-US", { timeZone: tz }));
+  const b = new Date(now.toLocaleString("en-US", { timeZone: "UTC" }));
+  return (a - b) / 60000;
 }
 
-function renderTimezones(austinMinutes) {
-  const grid = document.getElementById("tz-grid");
-  const austinOffset = getUTCOffset("America/Chicago");
-  const utcMinutes = austinMinutes - austinOffset;
-
-  grid.innerHTML = ZONES.map(zone => {
-    const offset = getUTCOffset(zone.tz);
-    let localMinutes = (utcMinutes + offset) % 1440;
-    if (localMinutes < 0) localMinutes += 1440;
-
-    const localHour = Math.floor(localMinutes / 60);
-    const dayDiff = Math.floor((utcMinutes + offset) / 1440);
-    const dayLabel = dayDiff > 0 ? `+${dayDiff} day` : dayDiff < 0 ? `${dayDiff} day` : "same day";
-
-    const { label, cls } = callStatus(localHour);
-    const isBad = cls === "status-bad";
-
-    return `
-      <div class="tz-card${zone.isYou ? " is-you" : ""}${isBad ? " bad-time" : ""}">
-        <div class="tz-city">${zone.city}${zone.isYou ? " (you)" : ""}</div>
-        <div class="tz-time">${formatMinutes(localMinutes)}</div>
-        <div class="tz-day-label">${dayLabel}</div>
-        <span class="tz-status ${cls}">${label}</span>
-      </div>`;
-  }).join("");
+function offsetLabel(tz) {
+  const off = utcOffset(tz);
+  const sign = off >= 0 ? "+" : "-";
+  const h = Math.floor(Math.abs(off) / 60);
+  const m = Math.abs(off) % 60;
+  return `UTC${sign}${h}${m ? `:${String(m).padStart(2,"0")}` : ""}`;
 }
 
 (function initTimezoneWidget() {
-  const slider = document.getElementById("tz-slider");
-  const display = document.getElementById("tz-slider-time");
+  const LABEL_W = 200;
+  const widget  = document.getElementById("tz-widget");
+  const cursor  = document.getElementById("tz-cursor");
+  const pill    = document.getElementById("tz-cursor-pill");
+  const timeEl  = document.getElementById("tz-cursor-time");
+  const rowsEl  = document.getElementById("tz-rows");
 
-  function update() {
-    const val = parseInt(slider.value, 10);
-    display.textContent = formatMinutes(val);
-    slider.style.setProperty("--fill", `${(val / 1439) * 100}%`);
-    renderTimezones(val);
+  rowsEl.innerHTML = ZONES.map((z, i) => `
+    <div class="tz-row">
+      <div class="tz-label">
+        <span class="tz-name">${z.flag} ${z.city}${z.isYou ? " (you)" : ""}</span>
+        <span class="tz-offset">${offsetLabel(z.tz)}</span>
+      </div>
+      <div class="tz-bar-wrap" id="tz-bw-${i}">
+        <div class="tz-bar ${z.isYou ? "grad-local" : "grad-default"}"></div>
+        <span class="tz-row-time" id="tz-rt-${i}"></span>
+      </div>
+    </div>`).join("");
+
+  const austinOff = utcOffset("America/Chicago");
+  let austinMins = 720;
+
+  function barW() {
+    return widget.offsetWidth - LABEL_W - 24;
   }
+
+  function minsToX(mins) {
+    return LABEL_W + (mins / 1440) * barW();
+  }
+
+  function xToMins(x) {
+    const clamped = Math.min(Math.max(x - LABEL_W, 0), barW());
+    return Math.round((clamped / barW()) * 1440 / 15) * 15;
+  }
+
+  function render() {
+    const x = minsToX(austinMins);
+    cursor.style.left = x + "px";
+    timeEl.textContent = fmtMins(austinMins);
+
+    const utcMins = austinMins - austinOff;
+    ZONES.forEach((z, i) => {
+      const localMins = ((utcMins + utcOffset(z.tz)) % 1440 + 1440) % 1440;
+      const rt = document.getElementById(`tz-rt-${i}`);
+      const bw = document.getElementById(`tz-bw-${i}`);
+      if (!rt || !bw) return;
+      rt.textContent = fmtMins(localMins);
+      const bwRect = bw.getBoundingClientRect();
+      const wRect  = widget.getBoundingClientRect();
+      rt.style.left = (x - (bwRect.left - wRect.left)) + "px";
+    });
+  }
+
+  function startDrag(startX) {
+    const wRect = widget.getBoundingClientRect();
+    function move(cx) {
+      austinMins = xToMins(cx - wRect.left);
+      render();
+    }
+    const mm = e => move(e.clientX);
+    const tm = e => move(e.touches[0].clientX);
+    const stop = () => {
+      document.removeEventListener("mousemove", mm);
+      document.removeEventListener("mouseup", stop);
+      document.removeEventListener("touchmove", tm);
+      document.removeEventListener("touchend", stop);
+    };
+    document.addEventListener("mousemove", mm);
+    document.addEventListener("mouseup", stop);
+    document.addEventListener("touchmove", tm, { passive: true });
+    document.addEventListener("touchend", stop);
+    move(startX);
+  }
+
+  pill.addEventListener("mousedown",  e => { e.preventDefault(); startDrag(e.clientX); });
+  pill.addEventListener("touchstart", e => startDrag(e.touches[0].clientX), { passive: true });
+
+  widget.addEventListener("click", e => {
+    if (pill.contains(e.target)) return;
+    const wRect = widget.getBoundingClientRect();
+    austinMins = xToMins(e.clientX - wRect.left);
+    render();
+  });
+
+  window.addEventListener("resize", render);
 
   const now = new Date();
   const austinNow = new Date(now.toLocaleString("en-US", { timeZone: "America/Chicago" }));
-  const currentMinutes = austinNow.getHours() * 60 + austinNow.getMinutes();
-  slider.value = currentMinutes;
-
-  slider.addEventListener("input", update);
-  update();
+  austinMins = austinNow.getHours() * 60 + austinNow.getMinutes();
+  requestAnimationFrame(render);
 })();
