@@ -19,72 +19,49 @@ const TRIP = {
       title: "Austin, TX",
       flag: "🇺🇸",
       note: "🏠 Home base · Feels like ~105°F with 60% humidity — stay hydrated, limit time outside midday.",
-      events: [
-        { time: "Jul 1", name: "Depart for Vancouver", detail: "Flight details TBD", tag: "travel" },
-      ],
+      events: [],
     },
     {
       date: "Jul 1 – Jul 5 · 4 days",
       title: "Vancouver, BC",
       flag: "🇨🇦",
-      note: "🌡️ Feels like 83°F · Cool evenings — bring a light jacket. No time adjustment needed vs Austin.",
-      events: [
-        { time: "Jul 2",    name: "FIFA World Cup Match ⚽", detail: "Vancouver venue — check ticket details", tag: "event" },
-        { time: "Evening",  name: "AnnaLena",               detail: "Michelin 1-star tasting menu · Book weeks ahead · Closed Mondays", tag: "food" },
-        { time: "TBD",      name: "Circle Wellness Granville Island", detail: "2-hr private wellness pod + cold plunge · Book 120-min session", tag: "activity" },
-      ],
+      note: "🌡️ Feels like 83°F · Cool evenings — bring a light jacket.",
+      events: [],
     },
     {
       date: "Jul 6 – Jul 10 · 4 days",
       title: "Paris, France",
       flag: "🇫🇷",
-      note: "🌡️ Feels like 93°F · Some humidity bump, rain likely — pack compact umbrella. OOO block: 5pm–11pm EDT.",
-      events: [
-        { time: "Jul 8–9",  name: "RAISE Summit 🎤",         detail: "Conference — block calendar for full days", tag: "event" },
-        { time: "Morning",  name: "Musée de la Vie Romantique", detail: "Free · Hidden in Montmartre · Garden café · 45 min max", tag: "activity" },
-        { time: "Evening",  name: "Neighborhood Bistro Dinner", detail: "Le Comptoir du Relais or similar — walk-in friendly", tag: "food" },
-      ],
+      note: "🌡️ Feels like 93°F · Some humidity bump, rain likely — pack compact umbrella.",
+      events: [],
     },
     {
       date: "Jul 11 – Jul 17 · 6 days",
       title: "Madeira, Portugal",
       flag: "🇵🇹",
-      note: "🌡️ Feels like 79°F · Most comfortable stop of the trip — sea breeze, no extreme heat. OOO block: 6pm–midnight EDT.",
-      events: [
-        { time: "Morning",  name: "Cabo Girão Glass Skywalk", detail: "580m sea cliff · Glass floor · €5 · 30 min", tag: "activity" },
-        { time: "Morning",  name: "Palheiro Gardens",         detail: "Misty subtropical gardens above Funchal · Café on site · Go early", tag: "activity" },
-      ],
+      note: "🌡️ Feels like 79°F · Most comfortable stop of the trip — sea breeze, no extreme heat.",
+      events: [],
     },
     {
       date: "Jul 18 – Jul 22 · 4 days",
       title: "London, UK",
       flag: "🇬🇧",
-      note: "🌡️ Feels like 82°F · Drizzly — ~10 rain days avg in July. Bring umbrella + one smart dinner outfit. OOO block: 6pm–midnight EDT.",
-      events: [
-        { time: "Evening",  name: "Evelyn's Table",           detail: "12-seat chef's counter below a Soho pub · Asian-influenced British tasting menu · Book at midnight UK time when reservations open", tag: "food" },
-        { time: "Daytime",  name: "Borough Market + Thames Walk", detail: "No tickets needed · Half day", tag: "activity" },
-      ],
+      note: "🌡️ Feels like 82°F · Drizzly — ~10 rain days avg in July. Bring umbrella + one smart dinner outfit.",
+      events: [],
     },
     {
       date: "Jul 23 – Jul 28 · 5 days",
       title: "Phu Quoc, Vietnam",
       flag: "🇻🇳",
-      note: "🌡️ Feels like 93°F with 82–86% humidity · Rainy season — heavy/unpredictable showers. Beach mornings only (before 10am), resort/AC afternoons. OOO block: 9am–5pm EDT (near-total NYC blackout).",
-      events: [
-        { time: "Day 1",    name: "InterContinental HARNN Heritage Spa", detail: "90-min couples treatment · Book immediately on arrival", tag: "activity" },
-        { time: "Morning",  name: "Beach Time",                detail: "Before 10am only — UV and heat index spike fast after that", tag: "free" },
-        { time: "Evening",  name: "Night Market Seafood",      detail: "Best food of Vietnam leg — go hungry", tag: "food" },
-      ],
+      note: "🌡️ Feels like 93°F with 82–86% humidity · Rainy season — beach mornings only (before 10am).",
+      events: [],
     },
     {
       date: "Jul 29 – Aug 1 · 3 days",
       title: "Da Nang, Vietnam",
       flag: "🇻🇳",
-      note: "🌡️ Feels like 110°F with 88–90% humidity · Hottest feels-like of the entire trip. Plan ALL outdoor activities at sunrise. OOO block: 9am–5pm EDT.",
-      events: [
-        { time: "7:00am",   name: "Marble Mountains",         detail: "Caves + Buddhist shrines inside cliffs · 5 min from beach · Go 7am sharp, done by 9am", tag: "activity" },
-        { time: "Final eve",name: "Gypsy Rooftop Restaurant 🎉", detail: "Michelin-recognized · 4.9 stars · Panoramic views · Trip's closing dinner", tag: "food" },
-      ],
+      note: "🌡️ Feels like 110°F with 88–90% humidity · Hottest stop of the trip — plan outdoor activities at sunrise.",
+      events: [],
     },
   ],
 };
@@ -131,7 +108,7 @@ TRIP.stops.forEach((stop, i) => {
     </div>
     <div class="day-body">
       ${noteHTML}
-      <div class="events">${eventsHTML}</div>
+      ${eventsHTML ? `<div class="events">${eventsHTML}</div>` : ""}
     </div>
   `;
 
