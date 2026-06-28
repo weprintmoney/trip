@@ -2,7 +2,7 @@
 // Edit this object to customize the trip. That's it — no other files to touch.
 
 const TRIP = {
-  name: "Summer 2026",
+  name: "The Eiman + Charlcye World Tour 2026",
   dates: "Jun 26 – Aug 1, 2026",
   crew: "Charlcye + Eiman",
   stats: {
