@@ -3,11 +3,12 @@
 
 const TRIP = {
   name: "The Eiman + Charlcye World Tour 2026",
-  dates: "Jun 26 – Aug 1, 2026",
+  dates: "Jul 2 – Aug 1, 2026",
   crew: "Charlcye + Eiman",
+  endIso: "2026-08-01T00:00:00-05:00",
   stats: {
-    days: 36,
-    cities: 7,
+    days: 30,
+    cities: 6,
     people: 2,
   },
 
@@ -15,16 +16,8 @@ const TRIP = {
   // Event tags: "food" | "activity" | "travel" | "lodging" | "free" | "event"
   stops: [
     {
-      iso:  "2026-06-26T00:00:00-05:00",
-      date: "Jun 26 – Jul 1 · 5 days",
-      title: "Austin, TX",
-      flag: "🇺🇸",
-      note: "🏠 Home base · Feels like ~105°F with 60% humidity — stay hydrated, limit time outside midday.",
-      events: [],
-    },
-    {
-      iso:  "2026-07-01T00:00:00-07:00",
-      date: "Jul 1 – Jul 5 · 4 days",
+      iso:  "2026-07-02T00:00:00-07:00",
+      date: "Jul 2 – Jul 5 · 3 days",
       title: "Vancouver, BC",
       flag: "🇨🇦",
       note: "🌡️ Feels like 83°F · Cool evenings — bring a light jacket.",
@@ -40,8 +33,8 @@ const TRIP = {
       ],
     },
     {
-      iso:  "2026-07-06T00:00:00+02:00",
-      date: "Jul 6 – Jul 10 · 4 days",
+      iso:  "2026-07-05T00:00:00+02:00",
+      date: "Jul 5 – Jul 10 · 5 days",
       title: "Paris, France",
       flag: "🇫🇷",
       note: "🌡️ Feels like 93°F · Some humidity bump, rain likely — pack compact umbrella.",
@@ -76,8 +69,8 @@ const TRIP = {
       ],
     },
     {
-      iso:  "2026-07-18T00:00:00+01:00",
-      date: "Jul 18 – Jul 22 · 4 days",
+      iso:  "2026-07-16T00:00:00+01:00",
+      date: "Jul 16 – Jul 22 · 6 days",
       title: "London, UK",
       flag: "🇬🇧",
       note: "🌡️ Feels like 82°F · Drizzly — ~10 rain days avg in July. Bring umbrella + one smart dinner outfit.",
@@ -86,15 +79,15 @@ const TRIP = {
     },
     {
       iso:  "2026-07-23T00:00:00+07:00",
-      date: "Jul 23 – Jul 28 · 5 days",
+      date: "Jul 23 – Jul 27 · 4 days",
       title: "Phu Quoc, Vietnam",
       flag: "🇻🇳",
       note: "🌡️ Feels like 93°F with 82–86% humidity · Rainy season — beach mornings only (before 10am).",
       events: [],
     },
     {
-      iso:  "2026-07-29T00:00:00+07:00",
-      date: "Jul 29 – Aug 1 · 3 days",
+      iso:  "2026-07-27T00:00:00+07:00",
+      date: "Jul 27 – Aug 1 · 5 days",
       title: "Da Nang, Vietnam",
       flag: "🇻🇳",
       note: "🌡️ Feels like 110°F with 88–90% humidity · Hottest stop of the trip — plan outdoor activities at sunrise.",
@@ -404,7 +397,11 @@ const TIMESHIFTER = {
 
   const milestones = TRIP.stops
     .filter(s => s.iso)
-    .map(s => ({ name: s.title, flag: s.flag, ts: new Date(s.iso).getTime() }));
+    .map(s => ({ name: s.title, flag: s.flag, ts: new Date(s.iso).getTime(), last: false }));
+
+  if (TRIP.endIso) {
+    milestones.push({ name: "Austin", flag: "🏠", ts: new Date(TRIP.endIso).getTime(), last: true });
+  }
 
   function pad(n) { return String(n).padStart(2, "0"); }
 
@@ -426,7 +423,7 @@ const TIMESHIFTER = {
     const mins = Math.floor((totalSecs % 3600) / 60);
     const secs = totalSecs % 60;
 
-    labelEl.textContent = "Next stop";
+    labelEl.textContent = next.last ? "Heading home" : "Next stop";
     destEl.textContent  = `${next.flag} ${next.name}`;
     daysEl.textContent  = pad(days);
     hrsEl.textContent   = pad(hrs);
@@ -445,10 +442,9 @@ const TIMESHIFTER = {
   if (!container || typeof d3 === "undefined" || typeof topojson === "undefined") return;
 
   const GLOBE_STOPS = [
-    { name: "Austin",    flag: "🇺🇸", coords: [-97.74,  30.27] },
     { name: "Vancouver", flag: "🇨🇦", coords: [-123.12, 49.28] },
     { name: "Paris",     flag: "🇫🇷", coords: [  2.35,  48.86] },
-    { name: "Funchal",   flag: "🇵🇹", coords: [-16.92,  32.67] }, // Madeira
+    { name: "Funchal",   flag: "🇵🇹", coords: [-16.92,  32.67] },
     { name: "London",    flag: "🇬🇧", coords: [ -0.13,  51.51] },
     { name: "Phu Quoc",  flag: "🇻🇳", coords: [103.98,  10.29] },
     { name: "Da Nang",   flag: "🇻🇳", coords: [108.20,  16.05] },
@@ -500,7 +496,7 @@ const TIMESHIFTER = {
     .scale(radius)
     .translate([cx, cy])
     .clipAngle(90)
-    .rotate([97.74, -30.27]); // Start centered on Austin
+    .rotate([123.12, -49.28]); // Start centered on Vancouver
 
   const geoPath = d3.geoPath().projection(proj);
   const graticule = d3.geoGraticule()();
@@ -547,8 +543,8 @@ const TIMESHIFTER = {
   // ── Animation state ──
   let drawProgress = 0;   // 0 → totalPts
   let drawDone = false;
-  let rotLambda = 97.74;
-  let rotPhi = -30.27;
+  let rotLambda = 123.12;
+  let rotPhi = -49.28;
   let autoRotating = true;
   let dragging = false;
   const DRAW_MS = 8000;
