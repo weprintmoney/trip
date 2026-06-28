@@ -262,7 +262,9 @@ function tzGradient(isYou, offsetDiffMins) {
 
   const austinOff = utcOffset("America/Chicago");
 
-  rowsEl.innerHTML = ZONES.map((z, i) => `
+  const sortedZones = [...ZONES].sort((a, b) => utcOffset(a.tz) - utcOffset(b.tz));
+
+  rowsEl.innerHTML = sortedZones.map((z, i) => `
     <div class="tz-row">
       <div class="tz-label">
         <span class="tz-name">${z.flag} ${z.city}${z.isYou ? " (you)" : ""}</span>
@@ -275,7 +277,7 @@ function tzGradient(isYou, offsetDiffMins) {
     </div>`).join("");
 
   // Apply per-zone gradient now that DOM is built
-  ZONES.forEach((z, i) => {
+  sortedZones.forEach((z, i) => {
     const bar = document.getElementById(`tz-bar-${i}`);
     const offsetDiff = utcOffset(z.tz) - austinOff;
     bar.style.background = tzGradient(z.isYou, offsetDiff);
@@ -302,7 +304,7 @@ function tzGradient(isYou, offsetDiffMins) {
     timeEl.textContent = fmtMins(austinMins);
 
     const utcMins = austinMins - austinOff;
-    ZONES.forEach((z, i) => {
+    sortedZones.forEach((z, i) => {
       const localMins = ((utcMins + utcOffset(z.tz)) % 1440 + 1440) % 1440;
       const rt = document.getElementById(`tz-rt-${i}`);
       const bw = document.getElementById(`tz-bw-${i}`);
