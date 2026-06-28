@@ -36,7 +36,7 @@ const TRIP = {
       title: "Paris, France",
       flag: "🇫🇷",
       note: "🌡️ Feels like 93°F · Some humidity bump, rain likely — pack compact umbrella.",
-      address: "Hyatt Louvre, Paris",
+      address: "Hôtel du Louvre, Paris",
       events: [],
     },
     {
