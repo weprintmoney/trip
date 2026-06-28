@@ -703,6 +703,35 @@ body {
   border-top: 1px solid var(--border);
 }
 
+.ts-section-collapsible { border: none; }
+.ts-section-collapsible > .ts-section-summary { list-style: none; cursor: pointer; }
+.ts-section-collapsible > .ts-section-summary::-webkit-details-marker { display: none; }
+
+.ts-section-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0;
+}
+
+.ts-section-title { margin-bottom: 0.25rem; }
+
+.ts-section-toggle {
+  color: var(--muted);
+  flex-shrink: 0;
+  margin-top: 0.5rem;
+  transition: transform 0.2s;
+}
+
+.ts-section-collapsible[open] .ts-section-toggle {
+  transform: rotate(180deg);
+}
+
+.ts-section-body {
+  margin-top: 1.5rem;
+}
+
 .ts-inner {
   max-width: 780px;
   margin: 0 auto;
