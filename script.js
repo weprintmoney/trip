@@ -196,6 +196,14 @@ const TRIP = {
   ],
 };
 
+// ─── CLIPS ─────────────────────────────────────────────────────────────────
+// To add a clip: upload to YouTube (unlisted), then add an entry below.
+// youtubeId = the part after "v=" in the YouTube URL (e.g. "dQw4w9WgXcQ")
+
+const CLIPS = [
+  // { youtubeId: "dQw4w9WgXcQ", title: "Arriving in Vancouver", city: "Vancouver", flag: "🇨🇦", date: "Jul 2" },
+];
+
 // ─── RENDER ────────────────────────────────────────────────────────────────
 
 document.getElementById("trip-name").textContent   = TRIP.name;
@@ -335,6 +343,51 @@ TRIP.stops.forEach((stop, i) => {
 function capitalize(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
+
+// ─── CLIPS RENDER ─────────────────────────────────────────────────────────
+
+(function initClips() {
+  const section = document.getElementById("clips-section");
+  const grid    = document.getElementById("clips-grid");
+  if (!section || !grid || CLIPS.length === 0) {
+    if (section) section.style.display = "none";
+    return;
+  }
+
+  grid.innerHTML = CLIPS.map(clip => `
+    <div class="clip-card">
+      <div class="clip-thumb" data-yt="${clip.youtubeId}">
+        <img
+          src="https://img.youtube.com/vi/${clip.youtubeId}/hqdefault.jpg"
+          alt="${clip.title}"
+          loading="lazy"
+        />
+        <button class="clip-play" aria-label="Play ${clip.title}">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+      </div>
+      <div class="clip-meta">
+        <span class="clip-city">${clip.flag} ${clip.city}</span>
+        <span class="clip-date">${clip.date}</span>
+        <p class="clip-title">${clip.title}</p>
+      </div>
+    </div>
+  `).join("");
+
+  grid.querySelectorAll(".clip-thumb").forEach(thumb => {
+    thumb.addEventListener("click", () => {
+      const id = thumb.dataset.yt;
+      thumb.innerHTML = `<iframe
+        src="https://www.youtube.com/embed/${id}?autoplay=1&rel=0"
+        allow="autoplay; encrypted-media; fullscreen"
+        allowfullscreen
+        frameborder="0"
+        style="position:absolute;inset:0;width:100%;height:100%;border-radius:10px 10px 0 0;"
+      ></iframe>`;
+      thumb.style.cursor = "default";
+    });
+  });
+})();
 
 // ─── TIMESHIFTER ──────────────────────────────────────────────────────────
 
@@ -613,12 +666,14 @@ const TIMESHIFTER = {
   if (!container || typeof d3 === "undefined" || typeof topojson === "undefined") return;
 
   const GLOBE_STOPS = [
-    { name: "Vancouver", flag: "🇨🇦", coords: [-123.12, 49.28] },
-    { name: "Paris",     flag: "🇫🇷", coords: [  2.35,  48.86] },
-    { name: "Funchal",   flag: "🇵🇹", coords: [-16.92,  32.67] },
-    { name: "London",    flag: "🇬🇧", coords: [ -0.13,  51.51] },
-    { name: "Phu Quoc",  flag: "🇻🇳", coords: [103.98,  10.29] },
-    { name: "Da Nang",   flag: "🇻🇳", coords: [108.20,  16.05] },
+    { name: "Austin",    flag: "🏠",   coords: [ -97.74,  30.27] },
+    { name: "Vancouver", flag: "🇨🇦", coords: [-123.12,  49.28] },
+    { name: "Paris",     flag: "🇫🇷", coords: [   2.35,  48.86] },
+    { name: "Funchal",   flag: "🇵🇹", coords: [ -16.92,  32.67] },
+    { name: "London",    flag: "🇬🇧", coords: [  -0.13,  51.51] },
+    { name: "Phu Quoc",  flag: "🇻🇳", coords: [ 103.98,  10.29] },
+    { name: "Da Nang",   flag: "🇻🇳", coords: [ 108.20,  16.05] },
+    { name: "Austin",    flag: "🏠",   coords: [ -97.74,  30.27] },
   ];
 
   // Pre-interpolate great circle arcs (80 steps each for smooth curves)
@@ -667,7 +722,7 @@ const TIMESHIFTER = {
     .scale(radius)
     .translate([cx, cy])
     .clipAngle(90)
-    .rotate([123.12, -49.28]); // Start centered on Vancouver
+    .rotate([97.74, -30.27]); // Start centered on Austin
 
   const geoPath = d3.geoPath().projection(proj);
   const graticule = d3.geoGraticule()();
@@ -714,8 +769,8 @@ const TIMESHIFTER = {
   // ── Animation state ──
   let drawProgress = 0;   // 0 → totalPts
   let drawDone = false;
-  let rotLambda = 123.12;
-  let rotPhi = -49.28;
+  let rotLambda = 97.74;
+  let rotPhi = -30.27;
   let autoRotating = true;
   let dragging = false;
   const DRAW_MS = 8000;
