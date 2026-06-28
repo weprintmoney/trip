@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Trip ✈️</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-label">📍 Destination</p>
+      <h1 class="hero-title" id="trip-name">The Trip</h1>
+      <p class="hero-dates" id="trip-dates">July 4 – July 10, 2026</p>
+      <div class="hero-crew">
+        <span class="crew-dot"></span>
+        <span id="trip-crew">You + the crew</span>
+      </div>
+    </div>
+    <div class="hero-scroll-hint">
+      <span>See the plan</span>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+    </div>
+  </header>
+
+  <!-- QUICK STATS -->
+  <section class="stats-bar">
+    <div class="stat">
+      <span class="stat-num" id="stat-days">7</span>
+      <span class="stat-label">Days</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat">
+      <span class="stat-num" id="stat-people">4</span>
+      <span class="stat-label">People</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat">
+      <span class="stat-num" id="stat-activities">12</span>
+      <span class="stat-label">Activities</span>
+    </div>
+  </section>
+
+  <!-- ITINERARY -->
+  <main class="itinerary">
+    <h2 class="section-title">The Plan</h2>
+
+    <div class="days" id="days-container">
+      <!-- Days are rendered by script.js from TRIP_DATA -->
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>Made with ❤️ for the crew</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
