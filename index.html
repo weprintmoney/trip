@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=5" />
+  <link rel="stylesheet" href="style.css?v=6" />
 </head>
 <body>
 
@@ -58,6 +58,20 @@
     </div>
   </section>
 
+  <!-- GLOBE -->
+  <section class="globe-section">
+    <div class="globe-inner">
+      <h2 class="section-title">The Journey</h2>
+      <p class="section-sub" style="margin-bottom:0">7 cities · ~17,000 miles · every arc is the actual shortest path on Earth</p>
+      <div id="globe-wrap"></div>
+      <p class="globe-hint">Drag to explore · auto-rotating</p>
+      <p class="globe-edu">
+        These paths curve north because they follow <strong>great circles</strong> — the shortest possible route between two points on a sphere.
+        The Vancouver → Paris flight passes over Greenland not by accident, but because that's genuinely the shortest way around the planet.
+      </p>
+    </div>
+  </section>
+
   <!-- ITINERARY -->
   <main class="itinerary">
     <h2 class="section-title">The Itinerary</h2>
@@ -93,6 +107,8 @@
     <p>Made with ❤️ by Claude</p>
   </footer>
 
-  <script src="script.js?v=7"></script>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
+  <script src="script.js?v=8"></script>
 </body>
 </html>

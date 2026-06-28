@@ -178,6 +178,222 @@ function capitalize(str) {
   setInterval(tick, 1000);
 })();
 
+// ─── GLOBE ────────────────────────────────────────────────────────────────
+
+(async function initGlobe() {
+  const container = document.getElementById("globe-wrap");
+  if (!container || typeof d3 === "undefined" || typeof topojson === "undefined") return;
+
+  const GLOBE_STOPS = [
+    { name: "Austin",    flag: "🇺🇸", coords: [-97.74,  30.27] },
+    { name: "Vancouver", flag: "🇨🇦", coords: [-123.12, 49.28] },
+    { name: "Paris",     flag: "🇫🇷", coords: [  2.35,  48.86] },
+    { name: "Funchal",   flag: "🇵🇹", coords: [-16.92,  32.67] }, // Madeira
+    { name: "London",    flag: "🇬🇧", coords: [ -0.13,  51.51] },
+    { name: "Phu Quoc",  flag: "🇻🇳", coords: [103.98,  10.29] },
+    { name: "Da Nang",   flag: "🇻🇳", coords: [108.20,  16.05] },
+  ];
+
+  // Pre-interpolate great circle arcs (80 steps each for smooth curves)
+  const STEPS = 80;
+  const arcs = [];
+  for (let i = 0; i < GLOBE_STOPS.length - 1; i++) {
+    const interp = d3.geoInterpolate(GLOBE_STOPS[i].coords, GLOBE_STOPS[i + 1].coords);
+    arcs.push(Array.from({ length: STEPS + 1 }, (_, t) => interp(t / STEPS)));
+  }
+  const totalPts = arcs.reduce((s, a) => s + a.length, 0);
+
+  // Size
+  const size = Math.min(container.clientWidth || 540, 540);
+  const cx = size / 2, cy = size / 2;
+  const radius = size / 2 - 16;
+
+  const svg = d3.select(container).append("svg")
+    .attr("width", size).attr("height", size);
+
+  // ── Defs ──
+  const defs = svg.append("defs");
+
+  // Ocean gradient
+  const og = defs.append("radialGradient").attr("id", "globe-ocean").attr("cx", "38%").attr("cy", "35%");
+  og.append("stop").attr("offset", "0%").attr("stop-color", "#1d4a8a");
+  og.append("stop").attr("offset", "100%").attr("stop-color", "#08111f");
+
+  // Arc glow
+  const gf = defs.append("filter").attr("id", "arc-glow")
+    .attr("x", "-40%").attr("y", "-40%").attr("width", "180%").attr("height", "180%");
+  gf.append("feGaussianBlur").attr("in", "SourceGraphic").attr("stdDeviation", "3.5").attr("result", "blur");
+  const fm = gf.append("feMerge");
+  fm.append("feMergeNode").attr("in", "blur");
+  fm.append("feMergeNode").attr("in", "SourceGraphic");
+
+  // Dot glow
+  const df = defs.append("filter").attr("id", "dot-glow")
+    .attr("x", "-100%").attr("y", "-100%").attr("width", "300%").attr("height", "300%");
+  df.append("feGaussianBlur").attr("in", "SourceGraphic").attr("stdDeviation", "2").attr("result", "blur");
+  const dfm = df.append("feMerge");
+  dfm.append("feMergeNode").attr("in", "blur");
+  dfm.append("feMergeNode").attr("in", "SourceGraphic");
+
+  // ── Projection ──
+  const proj = d3.geoOrthographic()
+    .scale(radius)
+    .translate([cx, cy])
+    .clipAngle(90)
+    .rotate([97.74, -30.27]); // Start centered on Austin
+
+  const geoPath = d3.geoPath().projection(proj);
+  const graticule = d3.geoGraticule()();
+
+  // ── Load world data ──
+  const world = await fetch("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json")
+    .then(r => r.json()).catch(() => null);
+  if (!world) return;
+  const land = topojson.feature(world, world.objects.land);
+
+  // ── Draw static layers ──
+  svg.append("circle").attr("cx", cx).attr("cy", cy).attr("r", radius).attr("fill", "url(#globe-ocean)");
+  svg.append("circle").attr("cx", cx).attr("cy", cy).attr("r", radius)
+    .attr("fill", "none").attr("stroke", "rgba(255,255,255,0.08)").attr("stroke-width", 1);
+
+  const gratPath  = svg.append("path").attr("fill", "none").attr("stroke", "rgba(255,255,255,0.06)").attr("stroke-width", 0.5);
+  const landPath  = svg.append("path").attr("fill", "#2a1e12").attr("stroke", "#4a3520").attr("stroke-width", 0.4);
+
+  // ── Arc paths ──
+  const arcPaths = arcs.map(() =>
+    svg.append("path")
+      .attr("fill", "none")
+      .attr("stroke", "#7c6ff7")
+      .attr("stroke-width", 2)
+      .attr("stroke-linecap", "round")
+      .attr("stroke-linejoin", "round")
+      .attr("filter", "url(#arc-glow)")
+      .attr("opacity", 0)
+  );
+
+  // ── Stop markers ──
+  const markers = GLOBE_STOPS.map((stop, i) => {
+    const g = svg.append("g").attr("opacity", 0);
+    g.append("circle").attr("r", 5.5).attr("fill", "#f7c06f").attr("stroke", "#fff")
+      .attr("stroke-width", 1.5).attr("filter", "url(#dot-glow)");
+    const lbl = g.append("text").text(stop.name)
+      .attr("font-size", "11.5px").attr("font-weight", "600")
+      .attr("font-family", "'Inter',sans-serif").attr("fill", "#fff")
+      .attr("text-anchor", "middle").attr("dy", "-11px")
+      .style("text-shadow", "0 1px 4px rgba(0,0,0,0.95)").style("pointer-events", "none");
+    return { stop, g, lbl };
+  });
+
+  // ── Animation state ──
+  let drawProgress = 0;   // 0 → totalPts
+  let drawDone = false;
+  let rotLambda = 97.74;
+  let rotPhi = -30.27;
+  let autoRotating = true;
+  let dragging = false;
+  const DRAW_MS = 8000;
+  let startTime = null;
+
+  // Target rotation: follow the drawing cursor
+  function cursorCoords(progress01) {
+    let idx = Math.floor(progress01 * totalPts);
+    let cum = 0;
+    for (const arc of arcs) {
+      if (idx < cum + arc.length) return arc[idx - cum];
+      cum += arc.length;
+    }
+    return GLOBE_STOPS[GLOBE_STOPS.length - 1].coords;
+  }
+
+  function visibleHemisphere(coords) {
+    const rot = proj.rotate();
+    const center = [-rot[0], -rot[1]];
+    return d3.geoDistance(coords, center) < Math.PI / 2;
+  }
+
+  function render() {
+    proj.rotate([rotLambda, rotPhi]);
+    gratPath.attr("d", geoPath(graticule));
+    landPath.attr("d", geoPath(land));
+
+    // Arcs — reveal based on drawProgress
+    let remaining = drawProgress;
+    arcs.forEach((pts, ai) => {
+      if (remaining <= 0) { arcPaths[ai].attr("opacity", 0); return; }
+      const take = Math.min(Math.floor(remaining), pts.length);
+      remaining -= pts.length;
+      if (take < 2) { arcPaths[ai].attr("opacity", 0); return; }
+      const line = { type: "LineString", coordinates: pts.slice(0, take) };
+      arcPaths[ai].attr("d", geoPath(line)).attr("opacity", 0.9);
+    });
+
+    // Markers — show stop once its arc has started
+    markers.forEach(({ stop, g, lbl }, i) => {
+      const arcStartPt = arcs.slice(0, i).reduce((s, a) => s + a.length, 0);
+      const show = drawProgress >= arcStartPt;
+      if (!show) { g.attr("opacity", 0); return; }
+      const p = proj(stop.coords);
+      const vis = p && visibleHemisphere(stop.coords);
+      g.attr("opacity", vis ? 1 : 0);
+      if (vis) {
+        g.attr("transform", `translate(${p[0]},${p[1]})`);
+        // Flip label below if near top of globe
+        lbl.attr("dy", p[1] < cy * 0.5 ? "20px" : "-11px");
+      }
+    });
+  }
+
+  // ── Main loop ──
+  d3.timer(elapsed => {
+    if (!drawDone) {
+      if (!startTime) startTime = elapsed;
+      const t = Math.min((elapsed - startTime) / DRAW_MS, 1);
+      const eased = d3.easeCubicInOut(t);
+      drawProgress = eased * totalPts;
+
+      if (!dragging) {
+        const cursor = cursorCoords(eased);
+        const tLambda = -cursor[0];
+        const tPhi    = Math.max(-50, Math.min(50, -cursor[1] * 0.55));
+        rotLambda += (tLambda - rotLambda) * 0.018;
+        rotPhi    += (tPhi    - rotPhi)    * 0.018;
+      }
+
+      if (t >= 1) {
+        drawDone = true;
+        drawProgress = totalPts;
+      }
+    } else {
+      if (autoRotating && !dragging) {
+        rotLambda -= 0.12;
+        rotPhi += (-20 - rotPhi) * 0.008;
+      }
+    }
+    render();
+  });
+
+  // ── Drag ──
+  let dragPos0 = null, dragRot0 = null;
+  svg.style("cursor", "grab").call(d3.drag()
+    .on("start", e => {
+      dragging = true;
+      autoRotating = false;
+      dragPos0 = [e.x, e.y];
+      dragRot0 = [rotLambda, rotPhi];
+      svg.style("cursor", "grabbing");
+    })
+    .on("drag", e => {
+      rotLambda = dragRot0[0] + (e.x - dragPos0[0]) * 0.45;
+      rotPhi    = Math.max(-80, Math.min(80, dragRot0[1] - (e.y - dragPos0[1]) * 0.45));
+    })
+    .on("end", () => {
+      dragging = false;
+      svg.style("cursor", "grab");
+      setTimeout(() => { autoRotating = true; }, 2500);
+    })
+  );
+})();
+
 // ─── TIMEZONE WIDGET ──────────────────────────────────────────────────────
 
 const ZONES = [
