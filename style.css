@@ -141,66 +141,70 @@ body {
   50% { transform: translateX(-50%) translateY(6px); }
 }
 
-/* ─── Countdown Bar ─── */
-.countdown-bar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1.25rem;
-  padding: 0.85rem 2rem;
-  background: var(--surface2);
-  border-bottom: 1px solid var(--border);
-  flex-wrap: wrap;
+/* ─── Countdown Widget (inside hero) ─── */
+.countdown-widget {
+  margin-top: 2rem;
+  padding: 1.25rem 1.75rem;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
+  backdrop-filter: blur(8px);
+  display: inline-block;
+  text-align: center;
 }
 
 .cd-label-text {
   font-size: 0.7rem;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.15em;
-  color: var(--muted);
+  letter-spacing: 0.18em;
+  color: var(--accent2);
+  margin-bottom: 0.3rem;
 }
 
 .cd-dest {
-  font-size: 0.95rem;
-  font-weight: 600;
+  font-size: 1.1rem;
+  font-weight: 700;
   color: var(--text);
+  margin-bottom: 0.75rem;
 }
 
 .cd-timer {
   display: flex;
   align-items: center;
-  gap: 0.35rem;
+  gap: 0.5rem;
+  justify-content: center;
 }
 
 .cd-unit {
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 2.5rem;
+  min-width: 3rem;
 }
 
 .cd-unit > span:first-child {
-  font-size: 1.4rem;
+  font-size: 2rem;
   font-weight: 700;
-  color: var(--accent);
+  color: #fff;
   font-variant-numeric: tabular-nums;
   line-height: 1;
 }
 
 .cd-unit-label {
-  font-size: 0.55rem;
+  font-size: 0.6rem;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--muted);
-  margin-top: 0.15rem;
+  letter-spacing: 0.12em;
+  color: rgba(255,255,255,0.45);
+  margin-top: 0.2rem;
 }
 
 .cd-sep {
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: var(--muted);
-  padding-bottom: 0.9rem;
+  font-size: 1.75rem;
+  font-weight: 300;
+  color: rgba(255,255,255,0.3);
+  padding-bottom: 1.2rem;
+  line-height: 1;
 }
 
 /* ─── Stats Bar ─── */

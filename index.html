@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=2" />
+  <link rel="stylesheet" href="style.css?v=3" />
 </head>
 <body>
 
@@ -22,27 +22,27 @@
         <span class="crew-dot"></span>
         <span id="trip-crew">Charlcye + Eiman</span>
       </div>
+
+      <!-- COUNTDOWN -->
+      <div class="countdown-widget">
+        <p class="cd-label-text" id="cd-label">Next stop</p>
+        <p class="cd-dest" id="cd-dest">🇨🇦 Vancouver, BC</p>
+        <div class="cd-timer">
+          <div class="cd-unit"><span id="cd-days">--</span><span class="cd-unit-label">days</span></div>
+          <span class="cd-sep">:</span>
+          <div class="cd-unit"><span id="cd-hours">--</span><span class="cd-unit-label">hrs</span></div>
+          <span class="cd-sep">:</span>
+          <div class="cd-unit"><span id="cd-mins">--</span><span class="cd-unit-label">min</span></div>
+          <span class="cd-sep">:</span>
+          <div class="cd-unit"><span id="cd-secs">--</span><span class="cd-unit-label">sec</span></div>
+        </div>
+      </div>
     </div>
     <div class="hero-scroll-hint">
       <span>See the plan</span>
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
     </div>
   </header>
-
-  <!-- COUNTDOWN -->
-  <div class="countdown-bar">
-    <span class="cd-label-text" id="cd-label">Next stop</span>
-    <span class="cd-dest" id="cd-dest"></span>
-    <div class="cd-timer">
-      <div class="cd-unit"><span id="cd-days">--</span><span class="cd-unit-label">days</span></div>
-      <span class="cd-sep">:</span>
-      <div class="cd-unit"><span id="cd-hours">--</span><span class="cd-unit-label">hrs</span></div>
-      <span class="cd-sep">:</span>
-      <div class="cd-unit"><span id="cd-mins">--</span><span class="cd-unit-label">min</span></div>
-      <span class="cd-sep">:</span>
-      <div class="cd-unit"><span id="cd-secs">--</span><span class="cd-unit-label">sec</span></div>
-    </div>
-  </div>
 
   <!-- QUICK STATS -->
   <section class="stats-bar">
@@ -97,6 +97,6 @@
     <p>Made with ❤️ for two</p>
   </footer>
 
-  <script src="script.js?v=4"></script>
+  <script src="script.js?v=5"></script>
 </body>
 </html>
