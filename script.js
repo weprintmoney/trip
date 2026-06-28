@@ -780,7 +780,7 @@ const TIMESHIFTER = {
   let rotLambda = 97.74;
   let rotPhi = -30.27;
   let dragging = false;
-  const DRAW_MS = 8000;
+  const DRAW_MS = 13000;
   let startTime = null;
 
   // Target rotation: follow the drawing cursor
@@ -844,8 +844,14 @@ const TIMESHIFTER = {
         const cursor = cursorCoords(eased);
         const tLambda = -cursor[0];
         const tPhi    = Math.max(-50, Math.min(50, -cursor[1] * 0.55));
-        rotLambda += (tLambda - rotLambda) * 0.018;
-        rotPhi    += (tPhi    - rotPhi)    * 0.018;
+        // Normalize delta to [-180, 180] so the globe always rotates the
+        // correct direction, including when the arc crosses the antimeridian
+        // (e.g. Da Nang → Austin going east across the Pacific).
+        let dLambda = tLambda - rotLambda;
+        while (dLambda >  180) dLambda -= 360;
+        while (dLambda < -180) dLambda += 360;
+        rotLambda += dLambda * 0.015;
+        rotPhi    += (tPhi - rotPhi) * 0.015;
       }
 
       if (t >= 1) {
