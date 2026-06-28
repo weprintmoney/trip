@@ -170,7 +170,7 @@ function capitalize(str) {
 const TIMESHIFTER = {
   legs: [
     {
-      title: "Leg 2 · Vancouver → Paris",
+      title: "Vancouver → Paris",
       badge: "+9 hrs east · Hard",
       startNote: "Protocol starts Fri Jul 3 — day after FIFA match, still in Vancouver",
       days: [
@@ -236,7 +236,7 @@ const TIMESHIFTER = {
       ]
     },
     {
-      title: "Leg 5 · London → Phu Quoc",
+      title: "London → Phu Quoc",
       badge: "+7 hrs east · Hard",
       startNote: "Protocol starts Mon Jul 20 — 2 days before departure",
       days: [
