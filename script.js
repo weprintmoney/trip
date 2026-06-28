@@ -97,7 +97,13 @@ const TRIP = {
         { date: "Jul 22", num: "TK 162",  route: "Istanbul → Ho Chi Minh City" },
         { date: "Jul 23", num: "VN 1835", route: "Ho Chi Minh City → Phu Quoc" },
       ],
-      events: [],
+      events: [
+        {
+          time: "8:45 PM (Sat Jul 18)",
+          name: "Dinner at Evelyn's Table",
+          tag: "food",
+        },
+      ],
     },
     {
       iso:  "2026-07-23T00:00:00+07:00",
