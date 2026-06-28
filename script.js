@@ -12,11 +12,11 @@ const TRIP = {
     people: 2,
   },
 
-  // Each stop: { iso (start datetime for countdown), date, title, flag, note (optional), events[] }
+  // Each stop: { iso (departure time for countdown — when you leave FOR this stop), date, title, flag, note (optional), transport, events[] }
   // Event tags: "food" | "activity" | "travel" | "lodging" | "free" | "event"
   stops: [
     {
-      iso:  "2026-07-02T00:00:00-07:00",
+      iso:  "2026-07-02T09:00:00-05:00",
       date: "Jul 2 – Jul 5 · 3 days",
       title: "Vancouver, BC",
       flag: "🇨🇦",
@@ -24,8 +24,13 @@ const TRIP = {
       note: "🌡️ Feels like 83°F · Cool evenings — bring a light jacket.",
       address: "2820 Panorama Drive, North Vancouver, BC V7G 1V6",
       photo: "images/vancouver-airbnb.png",
-      arrival:   [{ date: "Jul 2",  num: "UA 8015", route: "Austin → Vancouver" }],
-      departure: [{ date: "Jul 5",  num: "DL 8676", route: "Vancouver → Paris" }],
+      transport: {
+        icon: "🚗",
+        mode: "Rental car recommended",
+        rec: "North Vancouver is residential and spread out — a car gives you flexibility to reach BC Place for the match, explore Cypress Mountain, and skip the SeaBus + bus combo. Pick up at YVR on arrival.",
+      },
+      arrival:   [{ date: "Jul 2", num: "UA 8015", route: "Austin → Vancouver",  time: "9:00 AM CDT" }],
+      departure: [{ date: "Jul 5", num: "DL 8676", route: "Vancouver → Paris",   time: "1:10 PM PDT" }],
       events: [
         {
           time: "8:00 PM (Jul 2)",
@@ -37,7 +42,7 @@ const TRIP = {
       ],
     },
     {
-      iso:  "2026-07-05T00:00:00+02:00",
+      iso:  "2026-07-05T13:10:00-07:00",
       date: "Jul 5 – Jul 10 · 5 days",
       title: "Paris, France",
       flag: "🇫🇷",
@@ -45,9 +50,14 @@ const TRIP = {
       note: "🌡️ Feels like 93°F · Some humidity bump, rain likely — pack compact umbrella.",
       address: "Hôtel du Louvre, Paris",
       link: "https://www.hyatt.com/unbound-collection/en-US/paraz-hotel-du-louvre",
-      arrival:   [{ date: "Jul 5",  num: "DL 8676", route: "Vancouver → Paris" }],
+      transport: {
+        icon: "🚇",
+        mode: "Metro + Uber",
+        rec: "No car needed. Hôtel du Louvre is steps from Palais-Royal and Metro lines 1 & 7. RAISE Summit venues are Metro-accessible. Use Uber for late-night returns or luggage days.",
+      },
+      arrival:   [{ date: "Jul 5",  num: "DL 8676", route: "Vancouver → Paris",  time: "1:10 PM PDT" }],
       departure: [
-        { date: "Jul 10", num: "LH 1051", route: "Paris → Frankfurt" },
+        { date: "Jul 10", num: "LH 1051", route: "Paris → Frankfurt",  time: "7:25 AM CEST" },
         { date: "Jul 10", num: "LH 4410", route: "Frankfurt → Madeira" },
       ],
       events: [
@@ -70,7 +80,6 @@ const TRIP = {
           name: "Couple's Photo Session",
           detail: "Hosted by Jon · +11 others · 1.25 hours",
           tag: "activity",
-
         },
         {
           time: "10:00 PM (Thu Jul 9)",
@@ -82,7 +91,7 @@ const TRIP = {
       ],
     },
     {
-      iso:  "2026-07-10T00:00:00+01:00",
+      iso:  "2026-07-10T07:25:00+02:00",
       date: "Jul 10 – Jul 16 · 6 days",
       title: "Madeira, Portugal",
       flag: "🇵🇹",
@@ -90,11 +99,16 @@ const TRIP = {
       note: "🌡️ Feels like 79°F · Most comfortable stop of the trip — sea breeze, no extreme heat.",
       address: "Caminho da Fajã 96, Arco da Calheta, Madeira 9370, Portugal",
       photo: "images/madeira-airbnb.avif",
+      transport: {
+        icon: "🚗",
+        mode: "Rental car essential",
+        rec: "Arco da Calheta is on the rural western coast — buses are infrequent and taxis from Funchal are €30+ each way. Rent at FNC airport on arrival. Roads are narrow and hilly but manageable, and worth it for the freedom.",
+      },
       arrival: [
-        { date: "Jul 10", num: "LH 1051", route: "Paris → Frankfurt" },
+        { date: "Jul 10", num: "LH 1051", route: "Paris → Frankfurt",  time: "7:25 AM CEST" },
         { date: "Jul 10", num: "LH 4410", route: "Frankfurt → Madeira" },
       ],
-      departure: [{ date: "Jul 16", num: "BA 2717", route: "Funchal → London" }],
+      departure: [{ date: "Jul 16", num: "BA 2717", route: "Funchal → London",   time: "12:20 PM WEST" }],
       events: [
         { time: "3:00 PM",      name: "Check-in",             tag: "lodging" },
         { time: "6:00–7:00 PM", name: "Massage at the house", photo: "images/madeira-massage.avif", tag: "activity" },
@@ -115,7 +129,7 @@ const TRIP = {
       ],
     },
     {
-      iso:  "2026-07-16T00:00:00+01:00",
+      iso:  "2026-07-16T12:20:00+01:00",
       date: "Jul 16 – Jul 22 · 6 days",
       title: "London, UK",
       flag: "🇬🇧",
@@ -123,9 +137,14 @@ const TRIP = {
       note: "🌡️ Feels like 82°F · Drizzly — ~10 rain days avg in July. Bring umbrella + one smart dinner outfit.",
       address: "Mandarin Oriental Hyde Park, London",
       link: "https://www.mandarinoriental.com/en/london/hyde-park",
-      arrival:   [{ date: "Jul 16", num: "BA 2717", route: "Funchal → London" }],
+      transport: {
+        icon: "🚇",
+        mode: "Underground + Uber",
+        rec: "Hyde Park Corner station (Piccadilly line) is 2 minutes from the hotel. No car needed — congestion charges and parking make driving miserable in central London. Uber for late nights and airport transfers.",
+      },
+      arrival:   [{ date: "Jul 16", num: "BA 2717", route: "Funchal → London",          time: "12:20 PM WEST" }],
       departure: [
-        { date: "Jul 22", num: "TK 1972", route: "London → Istanbul" },
+        { date: "Jul 22", num: "TK 1972", route: "London → Istanbul",            time: "6:30 PM BST" },
         { date: "Jul 22", num: "TK 162",  route: "Istanbul → Ho Chi Minh City" },
         { date: "Jul 23", num: "VN 1835", route: "Ho Chi Minh City → Phu Quoc" },
       ],
@@ -139,12 +158,17 @@ const TRIP = {
       ],
     },
     {
-      iso:  "2026-07-23T00:00:00+07:00",
+      iso:  "2026-07-22T18:30:00+01:00",
       date: "Jul 23 – Jul 27 · 4 days",
       title: "Phu Quoc, Vietnam",
       flag: "🇻🇳",
       blurb: "Vietnam's largest island, off the southwestern coast. Known for white-sand beaches, clear turquoise water, and an unhurried resort pace. July is lush and green — occasional rain, always warm.",
       note: "🌡️ Feels like 93°F with 82–86% humidity · Rainy season — beach mornings only (before 10am).",
+      transport: {
+        icon: "🛵",
+        mode: "Hotel transfers + Grab",
+        rec: "Book airport transfer through your accommodation. Grab works in parts of Phu Quoc Town — supplement with your hotel's driver for day trips or beach clubs. A scooter rental (~$8/day) gives full freedom if you're comfortable riding.",
+      },
       arrival: [
         { date: "Jul 22", num: "TK 1972", route: "London → Istanbul" },
         { date: "Jul 22", num: "TK 162",  route: "Istanbul → Ho Chi Minh City" },
@@ -160,6 +184,11 @@ const TRIP = {
       flag: "🇻🇳",
       blurb: "A coastal city in central Vietnam, flanked by the ancient town of Hội An to the south and the Marble Mountains to the north. Long sandy beaches, modern bridges, and a city that moves fast.",
       note: "🌡️ Feels like 110°F with 88–90% humidity · Hottest stop of the trip — plan outdoor activities at sunrise.",
+      transport: {
+        icon: "📱",
+        mode: "Grab + day driver",
+        rec: "Grab is cheap and reliable throughout Da Nang. For Hội An (~30 min south), hire a Grab car or a day driver (~$25 round trip). If you want full flexibility, rent a motorbike — roads between Da Nang and Hội An are straightforward.",
+      },
       arrival:   [{ date: "Jul 27", num: "9G 2962", route: "Phu Quoc → Da Nang" }],
       departure: [{ date: "Aug 1",  num: null,       route: "Da Nang → Austin (home)" }],
       events: [],
@@ -241,13 +270,32 @@ TRIP.stops.forEach((stop, i) => {
       <div class="activity-list">${activitiesHTML}</div>
     </div>`;
 
+  const transportHTML = stop.transport ? `
+    <div class="stop-section">
+      <div class="stop-section-label">Getting Around</div>
+      <div class="transport-card">
+        <span class="transport-icon">${stop.transport.icon}</span>
+        <div class="transport-info">
+          <div class="transport-mode">${stop.transport.mode}</div>
+          <div class="transport-rec">${stop.transport.rec}</div>
+        </div>
+      </div>
+    </div>` : "";
+
   function flightLegsHTML(legs) {
-    return legs.map(f => `
-      <div class="flight-leg">
-        ${f.num ? `<span class="flight-num">${f.num}</span>` : ""}
-        <span class="flight-route">${f.route}</span>
-        <span class="flight-date">${f.date}</span>
-      </div>`).join("");
+    return legs.map(f => {
+      const faUrl = f.num ? `https://www.flightaware.com/live/flight/${f.num.replace(/\s+/g, "")}` : null;
+      const numEl = f.num
+        ? `<a class="flight-num" href="${faUrl}" target="_blank" rel="noopener">${f.num}</a>`
+        : "";
+      return `
+        <div class="flight-leg">
+          ${numEl}
+          <span class="flight-route">${f.route}</span>
+          ${f.time ? `<span class="flight-time">${f.time}</span>` : ""}
+          <span class="flight-date">${f.date}</span>
+        </div>`;
+    }).join("");
   }
 
   const flightsHTML = (stop.arrival || stop.departure) ? `
@@ -269,6 +317,7 @@ TRIP.stops.forEach((stop, i) => {
       ${blurbHTML}
       ${weatherHTML}
       ${stayingHTML}
+      ${transportHTML}
       ${doingHTML}
       ${flightsHTML}
     </div>
