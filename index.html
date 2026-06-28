@@ -56,6 +56,29 @@
     </div>
   </main>
 
+  <!-- TIME ZONES -->
+  <section class="timezones-section">
+    <div class="timezones-inner">
+      <h2 class="section-title">Reach Charlcye</h2>
+      <p class="section-sub">Drag the slider to find a time that works for everyone.</p>
+
+      <div class="tz-slider-wrap">
+        <label class="tz-slider-label">
+          <span id="tz-slider-time">12:00 PM</span>
+          <span class="tz-slider-hint">Austin time</span>
+        </label>
+        <input type="range" id="tz-slider" min="0" max="1439" value="720" step="15" />
+        <div class="tz-slider-ticks">
+          <span>12am</span><span>6am</span><span>12pm</span><span>6pm</span><span>12am</span>
+        </div>
+      </div>
+
+      <div class="tz-grid" id="tz-grid">
+        <!-- rendered by script.js -->
+      </div>
+    </div>
+  </section>
+
   <!-- FOOTER -->
   <footer class="footer">
     <p>Made with ❤️ for the crew</p>
