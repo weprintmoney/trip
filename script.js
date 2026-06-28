@@ -66,14 +66,14 @@ const TRIP = {
           time: "8:15 AM–7:00 PM (Wed Jul 8)",
           name: "RAISE Summit — Day 1",
           detail: "Master Stage · Grace Hopper · Paris<br>Mark Cuban × Anton Osika · Paolo Guglielmini (NVIDIA) · Ramin Hasani (Liquid AI) · Ion Stoica · Jordan Topoleski (Cursor) · Scott Wu (Cognition) · Guillaume Princen (Anthropic) · Pat Gelsinger · ALL IN Podcast Live",
-          link: "https://www.raise.paris",
+          link: "https://www.raisesummit.com",
           tag: "event",
         },
         {
           time: "8:30 AM–7:15 PM (Thu Jul 9)",
           name: "RAISE Summit — Day 2",
           detail: "Master Stage · Ada Lovelace · Grace Hopper · Paris<br>Amin Vahdat (Google) · Eiman Ebrahimi (Protopia AI) · William Falcon (Lightning AI) · Erik Bernhardsson (Modal) · Sachin Katti (OpenAI) × Andrew Feldman (Cerebras) · Yann LeCun · Startup Competition Final",
-          link: "https://www.raise.paris",
+          link: "https://www.raisesummit.com",
           tag: "event",
         },
         {
