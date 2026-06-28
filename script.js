@@ -99,6 +99,7 @@ const TRIP = {
       blurb: "A Portuguese island in the Atlantic, known for its dramatic volcanic peaks, lush levada walking trails, and year-round mild climate. Called the Island of Eternal Spring — and it earns it.",
       note: "🌡️ Feels like 79°F · Most comfortable stop of the trip — sea breeze, no extreme heat.",
       address: "Caminho da Fajã 96, Arco da Calheta, Madeira 9370, Portugal",
+      link: "https://www.airbnb.com/rooms/1277511117233439003?source_impression_id=p3_1782689943_P3REOnAl_JzDM1KY",
       photo: "images/madeira-airbnb.avif",
       transport: {
         icon: "🚗",
