@@ -141,6 +141,68 @@ body {
   50% { transform: translateX(-50%) translateY(6px); }
 }
 
+/* ─── Countdown Bar ─── */
+.countdown-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  padding: 0.85rem 2rem;
+  background: var(--surface2);
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+
+.cd-label-text {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--muted);
+}
+
+.cd-dest {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.cd-timer {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.cd-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 2.5rem;
+}
+
+.cd-unit > span:first-child {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.cd-unit-label {
+  font-size: 0.55rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  margin-top: 0.15rem;
+}
+
+.cd-sep {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--muted);
+  padding-bottom: 0.9rem;
+}
+
 /* ─── Stats Bar ─── */
 .stats-bar {
   display: flex;

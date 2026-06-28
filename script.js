@@ -11,10 +11,11 @@ const TRIP = {
     people: 2,
   },
 
-  // Each stop: { date, title, flag, note (optional), events[] }
+  // Each stop: { iso (start datetime for countdown), date, title, flag, note (optional), events[] }
   // Event tags: "food" | "activity" | "travel" | "lodging" | "free" | "event"
   stops: [
     {
+      iso:  "2026-06-26T00:00:00-05:00",
       date: "Jun 26 – Jul 1 · 5 days",
       title: "Austin, TX",
       flag: "🇺🇸",
@@ -22,6 +23,7 @@ const TRIP = {
       events: [],
     },
     {
+      iso:  "2026-07-01T00:00:00-07:00",
       date: "Jul 1 – Jul 5 · 4 days",
       title: "Vancouver, BC",
       flag: "🇨🇦",
@@ -29,6 +31,7 @@ const TRIP = {
       events: [],
     },
     {
+      iso:  "2026-07-06T00:00:00+02:00",
       date: "Jul 6 – Jul 10 · 4 days",
       title: "Paris, France",
       flag: "🇫🇷",
@@ -36,6 +39,7 @@ const TRIP = {
       events: [],
     },
     {
+      iso:  "2026-07-11T00:00:00+01:00",
       date: "Jul 11 – Jul 17 · 6 days",
       title: "Madeira, Portugal",
       flag: "🇵🇹",
@@ -43,6 +47,7 @@ const TRIP = {
       events: [],
     },
     {
+      iso:  "2026-07-18T00:00:00+01:00",
       date: "Jul 18 – Jul 22 · 4 days",
       title: "London, UK",
       flag: "🇬🇧",
@@ -50,6 +55,7 @@ const TRIP = {
       events: [],
     },
     {
+      iso:  "2026-07-23T00:00:00+07:00",
       date: "Jul 23 – Jul 28 · 5 days",
       title: "Phu Quoc, Vietnam",
       flag: "🇻🇳",
@@ -57,6 +63,7 @@ const TRIP = {
       events: [],
     },
     {
+      iso:  "2026-07-29T00:00:00+07:00",
       date: "Jul 29 – Aug 1 · 3 days",
       title: "Da Nang, Vietnam",
       flag: "🇻🇳",
@@ -124,6 +131,53 @@ TRIP.stops.forEach((stop, i) => {
 function capitalize(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
+
+// ─── COUNTDOWN ────────────────────────────────────────────────────────────
+
+(function initCountdown() {
+  const labelEl = document.getElementById("cd-label");
+  const destEl  = document.getElementById("cd-dest");
+  const daysEl  = document.getElementById("cd-days");
+  const hrsEl   = document.getElementById("cd-hours");
+  const minsEl  = document.getElementById("cd-mins");
+  const secsEl  = document.getElementById("cd-secs");
+  if (!labelEl) return;
+
+  const milestones = TRIP.stops
+    .filter(s => s.iso)
+    .map(s => ({ name: s.title, flag: s.flag, ts: new Date(s.iso).getTime() }));
+
+  function pad(n) { return String(n).padStart(2, "0"); }
+
+  function tick() {
+    const now = Date.now();
+    const next = milestones.find(m => m.ts > now);
+
+    if (!next) {
+      labelEl.textContent = "Thanks for an amazing trip! 🏠";
+      destEl.textContent  = "";
+      daysEl.textContent  = hrsEl.textContent = minsEl.textContent = secsEl.textContent = "--";
+      return;
+    }
+
+    const diff = next.ts - now;
+    const totalSecs = Math.floor(diff / 1000);
+    const days = Math.floor(totalSecs / 86400);
+    const hrs  = Math.floor((totalSecs % 86400) / 3600);
+    const mins = Math.floor((totalSecs % 3600) / 60);
+    const secs = totalSecs % 60;
+
+    labelEl.textContent = "Next stop";
+    destEl.textContent  = `${next.flag} ${next.name}`;
+    daysEl.textContent  = pad(days);
+    hrsEl.textContent   = pad(hrs);
+    minsEl.textContent  = pad(mins);
+    secsEl.textContent  = pad(secs);
+  }
+
+  tick();
+  setInterval(tick, 1000);
+})();
 
 // ─── TIMEZONE WIDGET ──────────────────────────────────────────────────────
 
