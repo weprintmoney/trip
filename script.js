@@ -28,6 +28,8 @@ const TRIP = {
       title: "Vancouver, BC",
       flag: "🇨🇦",
       note: "🌡️ Feels like 83°F · Cool evenings — bring a light jacket.",
+      address: "2820 Panorama Drive, North Vancouver, BC V7G 1V6",
+      photo: "images/vancouver-airbnb.png",
       events: [],
     },
     {
