@@ -370,6 +370,14 @@ body {
   color: var(--text);
 }
 
+.day-countdown {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--accent);
+  opacity: 0.85;
+  letter-spacing: 0.02em;
+}
+
 .day-toggle {
   color: var(--muted);
   transition: transform 0.2s;

@@ -317,11 +317,18 @@ TRIP.stops.forEach((stop, i) => {
       ${stop.departure ? `<div class="stop-flight"><span class="flight-dir">↑ Depart</span><div class="flight-legs">${flightLegsHTML(stop.departure)}</div></div>` : ""}
     </div>` : "";
 
+  const diffMs = new Date(stop.iso).getTime() - Date.now();
+  const daysUntil = Math.floor(diffMs / 86400000);
+  const countdownHTML = diffMs > 0
+    ? `<div class="day-countdown">${daysUntil === 0 ? "today" : daysUntil === 1 ? "1 day until" : `${daysUntil} days until`}</div>`
+    : "";
+
   card.innerHTML = `
     <div class="day-header">
       <div class="day-number">${stop.flag}</div>
       <div class="day-header-text">
         <div class="day-date">${stop.date}</div>
+        ${countdownHTML}
         <div class="day-title">${stop.title}</div>
       </div>
       <svg class="day-toggle" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
@@ -335,8 +342,6 @@ TRIP.stops.forEach((stop, i) => {
       ${flightsHTML}
     </div>
   `;
-
-  if (i === 0) card.classList.add("open");
 
   card.querySelector(".day-header").addEventListener("click", () => {
     card.classList.toggle("open");
