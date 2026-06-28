@@ -39,11 +39,13 @@ const TRIP = {
       events: [],
     },
     {
-      iso:  "2026-07-11T00:00:00+01:00",
-      date: "Jul 11 – Jul 17 · 6 days",
+      iso:  "2026-07-10T00:00:00+01:00",
+      date: "Jul 10 – Jul 16 · 6 days",
       title: "Madeira, Portugal",
       flag: "🇵🇹",
       note: "🌡️ Feels like 79°F · Most comfortable stop of the trip — sea breeze, no extreme heat.",
+      address: "Caminho da Fajã 96, Arco da Calheta, Madeira 9370, Portugal",
+      photo: "images/madeira-airbnb.avif",
       events: [],
     },
     {
@@ -103,6 +105,14 @@ TRIP.stops.forEach((stop, i) => {
     ? `<div class="day-note">${stop.note}</div>`
     : "";
 
+  const photoHTML = stop.photo
+    ? `<div class="stop-photo-wrap"><img class="stop-photo" src="${stop.photo}" alt="${stop.title} accommodation" loading="lazy" /></div>`
+    : "";
+
+  const addressHTML = stop.address
+    ? `<div class="stop-address">📍 ${stop.address}</div>`
+    : "";
+
   card.innerHTML = `
     <div class="day-header">
       <div class="day-number">${stop.flag}</div>
@@ -113,7 +123,9 @@ TRIP.stops.forEach((stop, i) => {
       <svg class="day-toggle" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
     </div>
     <div class="day-body">
+      ${photoHTML}
       ${noteHTML}
+      ${addressHTML}
       ${eventsHTML ? `<div class="events">${eventsHTML}</div>` : ""}
     </div>
   `;
