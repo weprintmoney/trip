@@ -618,6 +618,59 @@ body {
   padding: 0.5rem 0;
 }
 
+/* ─── Stop flights ─── */
+.stop-flights {
+  margin-top: 1rem;
+  border-top: 1px solid var(--border);
+  padding-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.stop-flight {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+}
+
+.flight-dir {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--muted);
+  white-space: nowrap;
+  min-width: 4rem;
+  padding-top: 0.18rem;
+}
+
+.flight-legs { display: flex; flex-direction: column; gap: 0.22rem; }
+
+.flight-leg {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+}
+
+.flight-num {
+  font-size: 0.78rem;
+  font-weight: 700;
+  font-family: 'SF Mono', 'Consolas', monospace;
+  color: var(--accent);
+  background: rgba(124,111,247,0.12);
+  padding: 0.08rem 0.38rem;
+  border-radius: 4px;
+}
+
+.flight-route { font-size: 0.82rem; color: var(--text); }
+
+.flight-date {
+  font-size: 0.74rem;
+  color: var(--muted);
+}
+
 /* ─── Timeshifter Section ─── */
 .timeshifter-section {
   padding: 4rem 0 3rem;

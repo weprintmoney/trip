@@ -24,6 +24,8 @@ const TRIP = {
       note: "🌡️ Feels like 83°F · Cool evenings — bring a light jacket.",
       address: "2820 Panorama Drive, North Vancouver, BC V7G 1V6",
       photo: "images/vancouver-airbnb.png",
+      arrival:   [{ date: "Jul 2",  num: "UA 8015", route: "Austin → Vancouver" }],
+      departure: [{ date: "Jul 5",  num: "DL 8676", route: "Vancouver → Paris" }],
       events: [
         {
           time: "8:00 PM (Jul 2)",
@@ -41,6 +43,11 @@ const TRIP = {
       blurb: "France's capital and one of the world's great cities — art, food, history, and architecture at every turn. Home to the Louvre, the Seine, and some of the best food on Earth.",
       note: "🌡️ Feels like 93°F · Some humidity bump, rain likely — pack compact umbrella.",
       address: "Hôtel du Louvre, Paris",
+      arrival:   [{ date: "Jul 5",  num: "DL 8676", route: "Vancouver → Paris" }],
+      departure: [
+        { date: "Jul 10", num: "LH 1051", route: "Paris → Frankfurt" },
+        { date: "Jul 10", num: "LH 4410", route: "Frankfurt → Madeira" },
+      ],
       events: [],
     },
     {
@@ -52,6 +59,11 @@ const TRIP = {
       note: "🌡️ Feels like 79°F · Most comfortable stop of the trip — sea breeze, no extreme heat.",
       address: "Caminho da Fajã 96, Arco da Calheta, Madeira 9370, Portugal",
       photo: "images/madeira-airbnb.avif",
+      arrival: [
+        { date: "Jul 10", num: "LH 1051", route: "Paris → Frankfurt" },
+        { date: "Jul 10", num: "LH 4410", route: "Frankfurt → Madeira" },
+      ],
+      departure: [{ date: "Jul 16", num: "BA 2717", route: "Funchal → London" }],
       events: [
         { time: "3:00 PM",      name: "Check-in",             tag: "lodging" },
         { time: "6:00–7:00 PM", name: "Massage at the house", photo: "images/madeira-massage.avif", tag: "activity" },
@@ -79,6 +91,12 @@ const TRIP = {
       blurb: "The British capital — a global hub of history, culture, and some genuinely excellent food. Buckingham Palace, the Tate, Hyde Park, and the best of British all within reach.",
       note: "🌡️ Feels like 82°F · Drizzly — ~10 rain days avg in July. Bring umbrella + one smart dinner outfit.",
       address: "Mandarin Oriental Hyde Park, London",
+      arrival:   [{ date: "Jul 16", num: "BA 2717", route: "Funchal → London" }],
+      departure: [
+        { date: "Jul 22", num: "TK 1972", route: "London → Istanbul" },
+        { date: "Jul 22", num: "TK 162",  route: "Istanbul → Ho Chi Minh City" },
+        { date: "Jul 23", num: "VN 1835", route: "Ho Chi Minh City → Phu Quoc" },
+      ],
       events: [],
     },
     {
@@ -88,6 +106,12 @@ const TRIP = {
       flag: "🇻🇳",
       blurb: "Vietnam's largest island, off the southwestern coast. Known for white-sand beaches, clear turquoise water, and an unhurried resort pace. July is lush and green — occasional rain, always warm.",
       note: "🌡️ Feels like 93°F with 82–86% humidity · Rainy season — beach mornings only (before 10am).",
+      arrival: [
+        { date: "Jul 22", num: "TK 1972", route: "London → Istanbul" },
+        { date: "Jul 22", num: "TK 162",  route: "Istanbul → Ho Chi Minh City" },
+        { date: "Jul 23", num: "VN 1835", route: "Ho Chi Minh City → Phu Quoc" },
+      ],
+      departure: [{ date: "Jul 27", num: "9G 2962", route: "Phu Quoc → Da Nang" }],
       events: [],
     },
     {
@@ -97,6 +121,8 @@ const TRIP = {
       flag: "🇻🇳",
       blurb: "A coastal city in central Vietnam, flanked by the ancient town of Hội An to the south and the Marble Mountains to the north. Long sandy beaches, modern bridges, and a city that moves fast.",
       note: "🌡️ Feels like 110°F with 88–90% humidity · Hottest stop of the trip — plan outdoor activities at sunrise.",
+      arrival:   [{ date: "Jul 27", num: "9G 2962", route: "Phu Quoc → Da Nang" }],
+      departure: [{ date: "Aug 1",  num: null,       route: "Da Nang → Austin (home)" }],
       events: [],
     },
   ],
@@ -170,6 +196,21 @@ TRIP.stops.forEach((stop, i) => {
       <div class="activity-list">${activitiesHTML}</div>
     </div>`;
 
+  function flightLegsHTML(legs) {
+    return legs.map(f => `
+      <div class="flight-leg">
+        ${f.num ? `<span class="flight-num">${f.num}</span>` : ""}
+        <span class="flight-route">${f.route}</span>
+        <span class="flight-date">${f.date}</span>
+      </div>`).join("");
+  }
+
+  const flightsHTML = (stop.arrival || stop.departure) ? `
+    <div class="stop-flights">
+      ${stop.arrival ? `<div class="stop-flight"><span class="flight-dir">↓ Arrive</span><div class="flight-legs">${flightLegsHTML(stop.arrival)}</div></div>` : ""}
+      ${stop.departure ? `<div class="stop-flight"><span class="flight-dir">↑ Depart</span><div class="flight-legs">${flightLegsHTML(stop.departure)}</div></div>` : ""}
+    </div>` : "";
+
   card.innerHTML = `
     <div class="day-header">
       <div class="day-number">${stop.flag}</div>
@@ -184,6 +225,7 @@ TRIP.stops.forEach((stop, i) => {
       ${weatherHTML}
       ${stayingHTML}
       ${doingHTML}
+      ${flightsHTML}
     </div>
   `;
 
