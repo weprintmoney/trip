@@ -558,7 +558,7 @@ const TIMESHIFTER = {
   TIMESHIFTER.legs.forEach(leg => {
     const panel = document.createElement("details");
     panel.className = "ts-leg";
-    panel.open = true;
+    panel.open = false;
 
     const daysHTML = leg.days.map(day => {
       const actionsHTML = day.actions.map(a => `
@@ -598,14 +598,17 @@ const TIMESHIFTER = {
     container.appendChild(panel);
   });
 
-  // Rules
-  const rulesEl = document.createElement("div");
-  rulesEl.className = "ts-rules";
-  rulesEl.innerHTML = `
-    <p class="ts-rules-title">General Rules</p>
-    <ol>${TIMESHIFTER.rules.map(r => `<li>${r}</li>`).join("")}</ol>
-  `;
-  container.after(rulesEl);
+  // Rules — rendered into the combined pack/rules details block
+  const rulesSlot = document.getElementById("ts-rules-slot");
+  if (rulesSlot) {
+    const rulesEl = document.createElement("div");
+    rulesEl.className = "ts-rules";
+    rulesEl.innerHTML = `
+      <p class="ts-rules-title">General Rules</p>
+      <ol>${TIMESHIFTER.rules.map(r => `<li>${r}</li>`).join("")}</ol>
+    `;
+    rulesSlot.replaceWith(rulesEl);
+  }
 })();
 
 // ─── COUNTDOWN ────────────────────────────────────────────────────────────

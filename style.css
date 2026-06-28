@@ -956,6 +956,14 @@ body {
   border-radius: var(--radius);
 }
 
+.ts-pack .ts-rules {
+  margin-top: 0;
+  border: none;
+  border-top: 1px solid var(--border);
+  border-radius: 0;
+  background: transparent;
+}
+
 /* ─── Pack List ─── */
 .ts-pack {
   margin-top: 1.25rem;
