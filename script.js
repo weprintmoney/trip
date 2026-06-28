@@ -46,7 +46,10 @@ const TRIP = {
       note: "🌡️ Feels like 79°F · Most comfortable stop of the trip — sea breeze, no extreme heat.",
       address: "Caminho da Fajã 96, Arco da Calheta, Madeira 9370, Portugal",
       photo: "images/madeira-airbnb.avif",
-      events: [],
+      events: [
+        { time: "3:00 PM",       name: "Check-in",           tag: "lodging" },
+        { time: "6:00–7:00 PM",  name: "Massage at the house", photo: "images/madeira-massage.avif", tag: "activity" },
+      ],
     },
     {
       iso:  "2026-07-18T00:00:00+01:00",
@@ -96,6 +99,7 @@ TRIP.stops.forEach((stop, i) => {
       <div class="event-content">
         <div class="event-name">${ev.name}</div>
         ${ev.detail ? `<div class="event-detail">${ev.detail}</div>` : ""}
+        ${ev.photo ? `<img class="event-photo" src="${ev.photo}" alt="${ev.name}" loading="lazy" />` : ""}
         <span class="event-tag tag-${ev.tag}">${capitalize(ev.tag)}</span>
       </div>
     </div>
