@@ -60,6 +60,7 @@ const TRIP = {
           time: "6:30–9:30 PM (Tue Jul 14)",
           name: "Luxury Catamaran & Dolphins – All Inclusive",
           detail: "Hosted by Maria & Jerome · +22 others · 3 hours on the water",
+          photo: "images/madeira-catamaran.avif",
           tag: "activity",
         },
       ],
