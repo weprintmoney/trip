@@ -72,6 +72,7 @@ const TRIP = {
       title: "London, UK",
       flag: "🇬🇧",
       note: "🌡️ Feels like 82°F · Drizzly — ~10 rain days avg in July. Bring umbrella + one smart dinner outfit.",
+      address: "Mandarin Oriental Hyde Park, London",
       events: [],
     },
     {
