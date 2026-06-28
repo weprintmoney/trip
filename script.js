@@ -23,6 +23,7 @@ const TRIP = {
       blurb: "A Pacific coast city framed by mountains, ocean, and old-growth forest. North Vancouver sits across the harbor — quieter, more residential, with direct access to waterfront views and trails.",
       note: "🌡️ Feels like 83°F · Cool evenings — bring a light jacket.",
       address: "2820 Panorama Drive, North Vancouver, BC V7G 1V6",
+      link: "https://www.airbnb.com/rooms/1232784257359324997?source_impression_id=p3_1782689778_P3_ezyqnQofMK8Yg",
       photo: "images/vancouver-airbnb.png",
       transport: {
         icon: "🚗",
