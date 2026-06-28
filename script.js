@@ -148,24 +148,6 @@ function capitalize(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-// ─── BOOKING PRIORITY BANNER ───────────────────────────────────────────────
-
-const BOOKING_PRIORITY = [
-  { name: "Evelyn's Table", detail: "Book at midnight UK time when reservations open", urgency: "high" },
-  { name: "AnnaLena",       detail: "Book now — weeks out, closed Mondays", urgency: "high" },
-  { name: "HARNN Heritage Spa", detail: "Book day 1 of Phu Quoc arrival", urgency: "med" },
-];
-
-const bookingContainer = document.getElementById("booking-priority");
-if (bookingContainer) {
-  bookingContainer.innerHTML = BOOKING_PRIORITY.map(b => `
-    <div class="booking-item urgency-${b.urgency}">
-      <div class="booking-name">${b.name}</div>
-      <div class="booking-detail">${b.detail}</div>
-    </div>
-  `).join("");
-}
-
 // ─── TIMEZONE WIDGET ──────────────────────────────────────────────────────
 
 const ZONES = [
