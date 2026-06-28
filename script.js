@@ -165,6 +165,225 @@ function capitalize(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
+// ─── TIMESHIFTER ──────────────────────────────────────────────────────────
+
+const TIMESHIFTER = {
+  legs: [
+    {
+      title: "Leg 2 · Vancouver → Paris",
+      badge: "+9 hrs east · Hard",
+      startNote: "Protocol starts Fri Jul 3 — day after FIFA match, still in Vancouver",
+      days: [
+        {
+          date: "Fri Jul 3", location: "Vancouver",
+          actions: [
+            { type: "light-soft",      label: "Soft light + caffeine",    time: "8–10 AM" },
+            { type: "light-bright",    label: "Bright light",             time: "11 AM–4 PM" },
+            { type: "caffeine-closed", label: "No caffeine",              time: "after 1 PM" },
+            { type: "light-avoid",     label: "Avoid light",              time: "9 PM+" },
+            { type: "melatonin",       label: "Melatonin 0.5mg + sleep",  time: "10–11 PM" },
+          ]
+        },
+        {
+          date: "Sat Jul 4", location: "Vancouver",
+          actions: [
+            { type: "sleep",           label: "Sleep ends early",         time: "~4 AM" },
+            { type: "light-soft",      label: "Soft light + caffeine",    time: "morning" },
+            { type: "melatonin",       label: "Sleep window shifting earlier", time: "earlier" },
+          ]
+        },
+        {
+          date: "Sun Jul 5", location: "Vancouver → flight (1:10 PM)",
+          actions: [
+            { type: "light-avoid",     label: "Avoid light",              time: "early AM" },
+            { type: "light-soft",      label: "Soft light + caffeine",    time: "6–9 AM" },
+            { type: "light-bright",    label: "Bright light",             time: "10 AM–1 PM" },
+            { type: "caffeine-closed", label: "No caffeine",              time: "after 8 AM" },
+            { type: "melatonin",       label: "Melatonin + sleep on plane", time: "9–11 PM" },
+          ]
+        },
+        {
+          date: "Mon Jul 6", location: "Arrive Paris 7:50 AM ⚠️ Hardest day",
+          done: false,
+          actions: [
+            { type: "light-avoid",     label: "Avoid light on arrival",   time: "7:50 AM" },
+            { type: "light-soft",      label: "Soft light + caffeine",    time: "9 AM–1 PM" },
+            { type: "light-bright",    label: "Bright light",             time: "3–8 PM" },
+            { type: "light-avoid",     label: "Avoid light",              time: "10 PM+" },
+            { type: "melatonin",       label: "Melatonin 0.5mg + sleep",  time: "~11 PM" },
+          ]
+        },
+        {
+          date: "Tue Jul 7", location: "Paris",
+          actions: [
+            { type: "light-soft",      label: "Same structure",           time: "morning" },
+            { type: "sleep",           label: "Sleep window tightening",  time: "to Paris schedule" },
+          ]
+        },
+        {
+          date: "Wed Jul 8", location: "Paris · RAISE Summit",
+          done: true,
+          actions: [
+            { type: "sleep",           label: "✅ Fully shifted — RAISE Summit ready", time: "" },
+          ]
+        },
+      ],
+      notes: [
+        "Caffeine cutoffs are hard rules — no afternoon espresso on Jul 6 even though you'll be wrecked and it's Paris",
+        "Light avoidance = sunglasses indoors if needed, not just staying inside",
+        "Jul 6 is the hardest day: land at 7:50 AM after overnight flight, seek light immediately, do NOT sleep in",
+        "Melatonin dose: 0.5mg — confirm supply before departing Austin",
+      ]
+    },
+    {
+      title: "Leg 5 · London → Phu Quoc",
+      badge: "+7 hrs east · Hard",
+      startNote: "Protocol starts Mon Jul 20 — 2 days before departure",
+      days: [
+        {
+          date: "Mon Jul 20", location: "London",
+          actions: [
+            { type: "light-soft",      label: "Soft light + caffeine",    time: "8–10 AM" },
+            { type: "light-bright",    label: "Bright light",             time: "11 AM–4 PM" },
+            { type: "caffeine-closed", label: "No caffeine",              time: "after 1 PM" },
+            { type: "light-avoid",     label: "Avoid light",              time: "9 PM+" },
+            { type: "melatonin",       label: "Melatonin 0.5mg + sleep",  time: "10–11 PM" },
+          ]
+        },
+        {
+          date: "Tue Jul 21", location: "London",
+          actions: [
+            { type: "sleep",           label: "Sleep ends early",         time: "~4 AM" },
+            { type: "light-soft",      label: "Same morning pattern",     time: "morning" },
+            { type: "sleep",           label: "Window shifting earlier",  time: "earlier" },
+          ]
+        },
+        {
+          date: "Wed Jul 22", location: "London → flight (6:30 PM)",
+          actions: [
+            { type: "light-soft",      label: "Soft light + caffeine",    time: "5–9 AM" },
+            { type: "light-bright",    label: "Bright light",             time: "10 AM–noon" },
+            { type: "caffeine-closed", label: "No caffeine",              time: "after 11 AM" },
+            { type: "melatonin",       label: "Melatonin + sleep on plane", time: "9–10 PM" },
+          ]
+        },
+        {
+          date: "Thu Jul 23", location: "Istanbul (1:50 AM) → HCMC → Phu Quoc (9:30 PM) ⚠️ Most complex day",
+          actions: [
+            { type: "light-avoid",     label: "Avoid light",              time: "arrival IST" },
+            { type: "light-soft",      label: "Soft light + caffeine",    time: "2–7 AM IST" },
+            { type: "nap",             label: "Nap — SET HARD ALARM",     time: "8–10 AM IST" },
+            { type: "light-bright",    label: "Bright light",             time: "11 AM IST+" },
+            { type: "caffeine-closed", label: "No caffeine",              time: "after 11 AM IST" },
+            { type: "light-bright",    label: "Bright light on arrival",  time: "until 6 PM HCMC" },
+            { type: "light-avoid",     label: "Avoid light",              time: "11 PM HCMC+" },
+            { type: "melatonin",       label: "Melatonin + sleep",        time: "~10 PM HCMC" },
+          ]
+        },
+        {
+          date: "Fri Jul 24", location: "Phu Quoc",
+          actions: [
+            { type: "sleep",           label: "Sleep until 7 AM",         time: "7 AM" },
+            { type: "light-soft",      label: "Soft light + caffeine",    time: "8 AM–1 PM" },
+            { type: "caffeine-closed", label: "No caffeine",              time: "after 2 PM" },
+            { type: "light-avoid",     label: "Avoid light",              time: "10 PM+" },
+            { type: "melatonin",       label: "Melatonin 0.5mg + sleep",  time: "~11 PM" },
+          ]
+        },
+        {
+          date: "Sat Jul 25", location: "Phu Quoc",
+          done: true,
+          actions: [
+            { type: "sleep",           label: "✅ Fully shifted — beach time", time: "" },
+          ]
+        },
+      ],
+      notes: [
+        "Jul 23 is the most complex execution day — two timezone markers (Istanbul + HCMC), active clock transition mid-transit",
+        "The Istanbul layover nap (8–10 AM Istanbul time) is prescribed — take it, but set a hard alarm. Missing the wake cue breaks the shift.",
+        "Arrive Phu Quoc 9:30 PM exhausted — avoid light, go straight to melatonin + sleep. Beach can wait.",
+        "Adaptation is faster than the Paris leg because you're already partially eastward-shifted from Europe.",
+      ]
+    },
+  ],
+  rules: [
+    "Caffeine cutoffs > comfort — the afternoon coffee you skip is the reason you sleep on schedule",
+    "Light avoidance = active effort — sunglasses indoors, screen brightness down, sleep mask on plane",
+    "0.5mg melatonin only — higher doses cause grogginess and don't shift the clock faster",
+    "Nap windows have length limits — if a nap is shown, honor the end time with an alarm",
+    "Eastward shifts are harder — you're shortening your day against biology; the pre-trip protocol is what makes it work",
+    "Don't get on local time by brute force — follow the sequence",
+  ]
+};
+
+(function initTimeshifter() {
+  const container = document.getElementById("ts-legs");
+  if (!container) return;
+
+  const CHIP_ICONS = {
+    "light-soft":      "☀️",
+    "light-bright":    "🟠",
+    "light-avoid":     "🚫☀️",
+    "caffeine-open":   "☕",
+    "caffeine-closed": "🚫☕",
+    "sleep":           "😴",
+    "nap":             "💤",
+    "melatonin":       "🌙",
+  };
+
+  TIMESHIFTER.legs.forEach(leg => {
+    const panel = document.createElement("details");
+    panel.className = "ts-leg";
+    panel.open = true;
+
+    const daysHTML = leg.days.map(day => {
+      const actionsHTML = day.actions.map(a => `
+        <span class="ts-chip ${a.type}">
+          ${CHIP_ICONS[a.type] || ""} ${a.label}${a.time ? ` <em>${a.time}</em>` : ""}
+        </span>
+      `).join("");
+
+      return `
+        <div class="ts-day${day.done ? " ts-day-done" : ""}">
+          <div class="ts-day-label">
+            <span class="ts-day-date">${day.date}</span>
+            <span class="ts-day-loc">${day.location}</span>
+          </div>
+          <div class="ts-actions">${actionsHTML}</div>
+        </div>
+      `;
+    }).join("");
+
+    const notesHTML = leg.notes.map(n => `<li>${n}</li>`).join("");
+
+    panel.innerHTML = `
+      <summary class="ts-leg-header">
+        <div class="ts-leg-title">${leg.title}</div>
+        <span class="ts-badge">${leg.badge}</span>
+      </summary>
+      <div class="ts-leg-body">
+        <p class="ts-start-note">⏱ ${leg.startNote}</p>
+        <div class="ts-days">${daysHTML}</div>
+        <div class="ts-notes">
+          <p class="ts-notes-title">Critical Notes</p>
+          <ul>${notesHTML}</ul>
+        </div>
+      </div>
+    `;
+
+    container.appendChild(panel);
+  });
+
+  // Rules
+  const rulesEl = document.createElement("div");
+  rulesEl.className = "ts-rules";
+  rulesEl.innerHTML = `
+    <p class="ts-rules-title">General Rules</p>
+    <ol>${TIMESHIFTER.rules.map(r => `<li>${r}</li>`).join("")}</ol>
+  `;
+  container.after(rulesEl);
+})();
+
 // ─── COUNTDOWN ────────────────────────────────────────────────────────────
 
 (function initCountdown() {
