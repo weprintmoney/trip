@@ -30,7 +30,14 @@ const TRIP = {
       note: "🌡️ Feels like 83°F · Cool evenings — bring a light jacket.",
       address: "2820 Panorama Drive, North Vancouver, BC V7G 1V6",
       photo: "images/vancouver-airbnb.png",
-      events: [],
+      events: [
+        {
+          time: "8:00 PM (Jul 2)",
+          name: "🏆 FIFA World Cup 2026 — Switzerland vs. Algeria",
+          detail: "Round of 32 · Match 85 · BC Place Stadium",
+          tag: "event",
+        },
+      ],
     },
     {
       iso:  "2026-07-06T00:00:00+02:00",
