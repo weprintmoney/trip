@@ -542,6 +542,11 @@ body {
   font-size: 0.85rem;
   color: var(--muted);
   line-height: 1.4;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
 }
 
 /* ─── Activity cards ─── */
@@ -617,6 +622,26 @@ body {
   font-style: italic;
   padding: 0.5rem 0;
 }
+
+.activity-footer {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin-top: 0.25rem;
+}
+
+.card-link {
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--accent);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  opacity: 0.85;
+  transition: opacity 0.15s;
+}
+
+.card-link:hover { opacity: 1; text-decoration: underline; }
 
 /* ─── Stop flights ─── */
 .stop-flights {
