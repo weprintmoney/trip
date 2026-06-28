@@ -20,6 +20,7 @@ const TRIP = {
       date: "Jul 2 – Jul 5 · 3 days",
       title: "Vancouver, BC",
       flag: "🇨🇦",
+      blurb: "A Pacific coast city framed by mountains, ocean, and old-growth forest. North Vancouver sits across the harbor — quieter, more residential, with direct access to waterfront views and trails.",
       note: "🌡️ Feels like 83°F · Cool evenings — bring a light jacket.",
       address: "2820 Panorama Drive, North Vancouver, BC V7G 1V6",
       photo: "images/vancouver-airbnb.png",
@@ -37,6 +38,7 @@ const TRIP = {
       date: "Jul 5 – Jul 10 · 5 days",
       title: "Paris, France",
       flag: "🇫🇷",
+      blurb: "France's capital and one of the world's great cities — art, food, history, and architecture at every turn. Home to the Louvre, the Seine, and some of the best food on Earth.",
       note: "🌡️ Feels like 93°F · Some humidity bump, rain likely — pack compact umbrella.",
       address: "Hôtel du Louvre, Paris",
       events: [],
@@ -46,6 +48,7 @@ const TRIP = {
       date: "Jul 10 – Jul 16 · 6 days",
       title: "Madeira, Portugal",
       flag: "🇵🇹",
+      blurb: "A Portuguese island in the Atlantic, known for its dramatic volcanic peaks, lush levada walking trails, and year-round mild climate. Called the Island of Eternal Spring — and it earns it.",
       note: "🌡️ Feels like 79°F · Most comfortable stop of the trip — sea breeze, no extreme heat.",
       address: "Caminho da Fajã 96, Arco da Calheta, Madeira 9370, Portugal",
       photo: "images/madeira-airbnb.avif",
@@ -73,6 +76,7 @@ const TRIP = {
       date: "Jul 16 – Jul 22 · 6 days",
       title: "London, UK",
       flag: "🇬🇧",
+      blurb: "The British capital — a global hub of history, culture, and some genuinely excellent food. Buckingham Palace, the Tate, Hyde Park, and the best of British all within reach.",
       note: "🌡️ Feels like 82°F · Drizzly — ~10 rain days avg in July. Bring umbrella + one smart dinner outfit.",
       address: "Mandarin Oriental Hyde Park, London",
       events: [],
@@ -82,6 +86,7 @@ const TRIP = {
       date: "Jul 23 – Jul 27 · 4 days",
       title: "Phu Quoc, Vietnam",
       flag: "🇻🇳",
+      blurb: "Vietnam's largest island, off the southwestern coast. Known for white-sand beaches, clear turquoise water, and an unhurried resort pace. July is lush and green — occasional rain, always warm.",
       note: "🌡️ Feels like 93°F with 82–86% humidity · Rainy season — beach mornings only (before 10am).",
       events: [],
     },
@@ -90,6 +95,7 @@ const TRIP = {
       date: "Jul 27 – Aug 1 · 5 days",
       title: "Da Nang, Vietnam",
       flag: "🇻🇳",
+      blurb: "A coastal city in central Vietnam, flanked by the ancient town of Hội An to the south and the Marble Mountains to the north. Long sandy beaches, modern bridges, and a city that moves fast.",
       note: "🌡️ Feels like 110°F with 88–90% humidity · Hottest stop of the trip — plan outdoor activities at sunrise.",
       events: [],
     },
@@ -110,30 +116,59 @@ TRIP.stops.forEach((stop, i) => {
   const card = document.createElement("div");
   card.className = "day-card";
 
-  const eventsHTML = stop.events.map(ev => `
-    <div class="event">
-      <span class="event-time">${ev.time}</span>
-      <div class="event-dot"></div>
-      <div class="event-content">
-        <div class="event-name">${ev.name}</div>
-        ${ev.detail ? `<div class="event-detail">${ev.detail}</div>` : ""}
-        ${ev.photo ? `<img class="event-photo" src="${ev.photo}" alt="${ev.name}" loading="lazy" />` : ""}
-        <span class="event-tag tag-${ev.tag}">${capitalize(ev.tag)}</span>
+  // About
+  const blurbHTML = stop.blurb
+    ? `<div class="stop-section">
+        <div class="stop-section-label">About</div>
+        <p class="stop-blurb">${stop.blurb}</p>
+       </div>`
+    : "";
+
+  // Weather
+  const weatherHTML = stop.note
+    ? `<div class="stop-section">
+        <div class="stop-section-label">Weather</div>
+        <div class="stop-weather">${stop.note}</div>
+       </div>`
+    : "";
+
+  // Staying
+  const lodgingImg = stop.photo
+    ? `<img class="card-img" src="${stop.photo}" alt="${stop.title} accommodation" loading="lazy" />`
+    : `<div class="card-img-placeholder"><span>🏨</span></div>`;
+  const stayingHTML = `
+    <div class="stop-section">
+      <div class="stop-section-label">Staying</div>
+      <div class="lodging-card">
+        ${lodgingImg}
+        <div class="lodging-name">📍 ${stop.address || "Accommodation TBD"}</div>
       </div>
-    </div>
-  `).join("");
+    </div>`;
 
-  const noteHTML = stop.note
-    ? `<div class="day-note">${stop.note}</div>`
-    : "";
+  // Doing
+  const activitiesHTML = stop.events.length
+    ? stop.events.map(ev => {
+        const thumb = ev.photo
+          ? `<img class="activity-thumb" src="${ev.photo}" alt="${ev.name}" loading="lazy" />`
+          : `<div class="activity-thumb activity-thumb-placeholder"><span>📅</span></div>`;
+        return `
+          <div class="activity-card">
+            ${thumb}
+            <div class="activity-info">
+              ${ev.time ? `<div class="activity-time">${ev.time}</div>` : ""}
+              <div class="activity-name">${ev.name}</div>
+              ${ev.detail ? `<div class="activity-detail">${ev.detail}</div>` : ""}
+              <span class="event-tag tag-${ev.tag}">${capitalize(ev.tag)}</span>
+            </div>
+          </div>`;
+      }).join("")
+    : `<div class="activity-tbd">Activities TBD</div>`;
 
-  const photoHTML = stop.photo
-    ? `<div class="stop-photo-wrap"><img class="stop-photo" src="${stop.photo}" alt="${stop.title} accommodation" loading="lazy" /></div>`
-    : "";
-
-  const addressHTML = stop.address
-    ? `<div class="stop-address">📍 ${stop.address}</div>`
-    : "";
+  const doingHTML = `
+    <div class="stop-section">
+      <div class="stop-section-label">Doing</div>
+      <div class="activity-list">${activitiesHTML}</div>
+    </div>`;
 
   card.innerHTML = `
     <div class="day-header">
@@ -145,10 +180,10 @@ TRIP.stops.forEach((stop, i) => {
       <svg class="day-toggle" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
     </div>
     <div class="day-body">
-      ${photoHTML}
-      ${noteHTML}
-      ${addressHTML}
-      ${eventsHTML ? `<div class="events">${eventsHTML}</div>` : ""}
+      ${blurbHTML}
+      ${weatherHTML}
+      ${stayingHTML}
+      ${doingHTML}
     </div>
   `;
 
