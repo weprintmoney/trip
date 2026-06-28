@@ -774,7 +774,6 @@ const TIMESHIFTER = {
   let drawDone = false;
   let rotLambda = 97.74;
   let rotPhi = -30.27;
-  let autoRotating = true;
   let dragging = false;
   const DRAW_MS = 8000;
   let startTime = null;
@@ -845,13 +844,13 @@ const TIMESHIFTER = {
       }
 
       if (t >= 1) {
-        drawDone = true;
+        drawDone     = true;
         drawProgress = totalPts;
-      }
-    } else {
-      if (autoRotating && !dragging) {
-        rotLambda -= 0.12;
-        rotPhi += (-20 - rotPhi) * 0.008;
+        setTimeout(() => {
+          drawDone     = false;
+          drawProgress = 0;
+          startTime    = null;
+        }, 1000);
       }
     }
     render();
@@ -862,7 +861,6 @@ const TIMESHIFTER = {
   svg.style("cursor", "grab").call(d3.drag()
     .on("start", e => {
       dragging = true;
-      autoRotating = false;
       dragPos0 = [e.x, e.y];
       dragRot0 = [rotLambda, rotPhi];
       svg.style("cursor", "grabbing");
@@ -874,7 +872,6 @@ const TIMESHIFTER = {
     .on("end", () => {
       dragging = false;
       svg.style("cursor", "grab");
-      setTimeout(() => { autoRotating = true; }, 2500);
     })
   );
 })();
