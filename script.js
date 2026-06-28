@@ -48,7 +48,14 @@ const TRIP = {
         { date: "Jul 10", num: "LH 1051", route: "Paris → Frankfurt" },
         { date: "Jul 10", num: "LH 4410", route: "Frankfurt → Madeira" },
       ],
-      events: [],
+      events: [
+        {
+          time: "7:00–8:15 PM (Thu Jul 9)",
+          name: "Couple's Photo Session",
+          detail: "Hosted by Jon · +11 others · 1.25 hours",
+          tag: "activity",
+        },
+      ],
     },
     {
       iso:  "2026-07-10T00:00:00+01:00",
