@@ -467,6 +467,28 @@ body {
 .tag-free { background: rgba(148,163,184,0.15); color: #94a3b8; }
 .tag-event { background: rgba(251,191,36,0.15); color: #fbbf24; }
 
+/* ─── Stop photo ─── */
+.stop-photo-wrap {
+  margin: -1.5rem -1.5rem 1.25rem;
+  overflow: hidden;
+  border-radius: var(--radius) var(--radius) 0 0;
+  max-height: 280px;
+}
+
+.stop-photo {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  display: block;
+}
+
+/* ─── Stop address ─── */
+.stop-address {
+  margin-top: 0.75rem;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
 /* ─── Day note ─── */
 .day-note {
   margin-bottom: 1.25rem;
