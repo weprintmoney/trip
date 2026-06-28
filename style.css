@@ -371,7 +371,6 @@ body {
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
   padding: 4rem 0 3rem;
-  overflow: hidden;
 }
 
 .timezones-header {
@@ -397,8 +396,10 @@ body {
   position: absolute;
   top: 0;
   bottom: 0;
+  width: 0;
   z-index: 10;
   pointer-events: none;
+  overflow: visible;
 }
 
 .tz-cursor-pill {
@@ -415,8 +416,7 @@ body {
   cursor: grab;
   pointer-events: all;
   box-shadow: 0 2px 14px rgba(184,255,65,0.4);
-  position: relative;
-  left: -50%;
+  transform: translateX(-50%);
 }
 
 .tz-cursor-pill:active { cursor: grabbing; }
@@ -453,9 +453,8 @@ body {
 .tz-cursor-line {
   position: absolute;
   top: 32px;
-  left: 0;
+  left: -1px;
   width: 2px;
-  margin-left: -1px;
   background: #d3ff59;
   bottom: 0;
   pointer-events: none;
@@ -509,6 +508,7 @@ body {
 }
 
 .tz-bar {
+  width: 100%;
   height: 22px;
   border-radius: 16px;
   position: relative;
