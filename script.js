@@ -148,18 +148,18 @@ const TRIP = {
           tag: "activity",
         },
         {
+          time: "3:00–6:30 PM (Tue Jul 14)",
+          name: "NYC Teamwork Hours",
+          detail: "= 10am–1:30pm NYC · before catamaran",
+          tag: "work",
+        },
+        {
           time: "6:30–9:30 PM (Tue Jul 14)",
           name: "Luxury Catamaran & Dolphins – All Inclusive",
           detail: "Hosted by Maria & Jerome · +22 others · 3 hours on the water",
           photo: "images/madeira-catamaran.avif",
           link: "https://www.airbnb.com/experiences/780563",
           tag: "activity",
-        },
-        {
-          time: "3:00–6:30 PM (Tue Jul 14)",
-          name: "NYC Teamwork Hours",
-          detail: "= 10am–1:30pm NYC · before catamaran",
-          tag: "work",
         },
         {
           time: "3:00–7:00 PM (Wed Jul 15)",
