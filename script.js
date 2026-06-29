@@ -81,7 +81,7 @@ const TRIP = {
           detail: "= 10am–2pm NYC",
           tag: "work",
         },
-        { time: "7:30 AM (Wed Jul 8)", name: "🚗 Leave for RAISE Summit", detail: "~30 min by Metro (Line 1 → Porte Maillot) or Uber · arrive by 8:00 AM", tag: "travel" },
+        { time: "8:05 AM (Wed Jul 8)", name: "🚶 Walk to RAISE Summit", detail: "Carrousel du Louvre, 99 Rue de Rivoli · ~7 min walk from Hôtel du Louvre", tag: "travel" },
         {
           time: "8:15 AM–7:00 PM (Wed Jul 8)",
           name: "RAISE Summit — Day 1",
@@ -89,7 +89,7 @@ const TRIP = {
           link: "https://www.raisesummit.com",
           tag: "event",
         },
-        { time: "7:45 AM (Thu Jul 9)", name: "🚗 Leave for RAISE Summit", detail: "~30 min by Metro or Uber · arrive by 8:15 AM", tag: "travel" },
+        { time: "8:20 AM (Thu Jul 9)", name: "🚶 Walk to RAISE Summit", detail: "Carrousel du Louvre, 99 Rue de Rivoli · ~7 min walk from Hôtel du Louvre", tag: "travel" },
         {
           time: "8:30 AM–7:15 PM (Thu Jul 9)",
           name: "RAISE Summit — Day 2",
