@@ -116,6 +116,11 @@ const TRIP = {
         { time: "3:00 PM (Thu Jul 10)",      name: "Check-in",             tag: "lodging" },
         { time: "6:00–7:00 PM (Thu Jul 10)", name: "Massage at the house", photo: "images/madeira-massage.avif", link: "https://www.airbnb.com/services/6961430", tag: "activity" },
         {
+          time: "12:30–3:30 PM CST (Fri Jul 11)",
+          name: "Private Chef Dinner",
+          tag: "food",
+        },
+        {
           time: "6:00 AM–1:00 PM (Tue Jul 14)",
           name: "Sunrise Tour of Madeira",
           detail: "Sunrise in secret spots off the tourist path · Hiking mountain peaks · Chasing waterfalls through ancient forest · Walking century-old village paths",
