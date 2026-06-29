@@ -129,7 +129,7 @@ const TRIP = {
         { time: "3:00 PM (Fri Jul 10)",      name: "Check-in",             tag: "lodging" },
         { time: "6:00–7:00 PM (Fri Jul 10)", name: "Massage at the house", photo: "images/madeira-massage.avif", link: "https://www.airbnb.com/services/6961430", tag: "activity" },
         {
-          time: "12:30–3:30 PM CST (Sat Jul 11)",
+          time: "6:30–9:30 PM (Sat Jul 11)",
           name: "Private Chef Dinner",
           tag: "food",
         },
