@@ -42,7 +42,7 @@ const TRIP = {
           link: "https://www.fifa.com/en/match-centre/match/17/285023/289287/400021527",
           tag: "event",
         },
-        { time: "10:25 AM (Sun Jul 5)", name: "🚗 Leave for YVR", detail: "DL 8676 departs 1:10 PM PDT · ~45 min from North Vancouver to YVR · arrive 11:10 AM for 2-hr intl check-in", tag: "travel" },
+        { time: "10:00 AM (Sun Jul 5)", name: "🚗 Leave for YVR", detail: "DL 8676 departs 1:10 PM PDT · ~45 min drive + ~25 min to return rental car & shuttle to terminal · arrive 11:10 AM for 2-hr intl check-in", tag: "travel" },
       ],
     },
     {
