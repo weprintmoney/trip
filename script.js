@@ -8,7 +8,7 @@ const TRIP = {
   endIso: "2026-08-01T00:00:00-05:00",
   stats: {
     days: 30,
-    cities: 6,
+    cities: 7,
     people: 2,
   },
 
