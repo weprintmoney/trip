@@ -224,6 +224,9 @@ const TRIP = {
       flag: "🇻🇳",
       blurb: "Vietnam's largest island, off the southwestern coast. Known for white-sand beaches, clear turquoise water, and an unhurried resort pace. July is lush and green — occasional rain, always warm.",
       note: "🌡️ Feels like 93°F with 82–86% humidity · Rainy season — beach mornings only (before 10am).",
+      address: "Melia Vinpearl Phu Quoc",
+      link: "https://www.melia.com/en/hotels/vietnam/phu-quoc/melia-vinpearl-phu-quoc",
+      photo: "images/phuquoc-hotel.avif",
       transport: {
         icon: "🛵",
         mode: "Hotel transfers + Grab",
