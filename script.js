@@ -51,6 +51,7 @@ const TRIP = {
       note: "🌡️ Feels like 93°F · Some humidity bump, rain likely — pack compact umbrella.",
       address: "Hôtel du Louvre, Paris",
       link: "https://www.hyatt.com/unbound-collection/en-US/paraz-hotel-du-louvre",
+      photo: "images/paris-hotel.jpg",
       transport: {
         icon: "🚇",
         mode: "Metro + Uber",
@@ -177,6 +178,7 @@ const TRIP = {
       note: "🌡️ Feels like 82°F · Drizzly — ~10 rain days avg in July. Bring umbrella + one smart dinner outfit.",
       address: "Mandarin Oriental Hyde Park, London",
       link: "https://www.mandarinoriental.com/en/london/hyde-park",
+      photo: "images/london-hotel.jpg",
       transport: {
         icon: "🚇",
         mode: "Underground + Uber",
