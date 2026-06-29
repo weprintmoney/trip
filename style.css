@@ -632,6 +632,43 @@ body {
   padding: 0.5rem 0;
 }
 
+/* ── Day groups ── */
+.day-grouped { gap: 0; }
+
+.day-group { margin-bottom: 1.25rem; }
+.day-group:last-child { margin-bottom: 0; }
+
+.day-group-header {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  margin-bottom: 0.75rem;
+}
+
+.day-group-dow {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: var(--accent);
+  opacity: 0.75;
+}
+
+.day-group-date {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.day-empty {
+  font-size: 0.83rem;
+  color: var(--muted);
+  font-style: italic;
+  padding: 0.25rem 0 0.5rem;
+}
+
 .activity-footer {
   display: flex;
   align-items: center;

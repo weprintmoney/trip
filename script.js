@@ -260,6 +260,8 @@ const TRIP = {
       flag: "🇻🇳",
       blurb: "A coastal city in central Vietnam, flanked by the ancient town of Hội An to the south and the Marble Mountains to the north. Long sandy beaches, modern bridges, and a city that moves fast.",
       note: "🌡️ Feels like 110°F with 88–90% humidity · Hottest stop of the trip — plan outdoor activities at sunrise.",
+      address: "Tye's Summer Residence",
+      photo: "images/danang-villa.jpg",
       transport: {
         icon: "📱",
         mode: "Grab + day driver",
@@ -289,6 +291,50 @@ document.getElementById("stat-cities").textContent = TRIP.stats.cities;
 document.getElementById("stat-people").textContent = TRIP.stats.people;
 
 const container = document.getElementById("days-container");
+
+// ─── DAY GROUPING HELPERS ──────────────────────────────────────────────────
+const _MONTHS = { Jan:0,Feb:1,Mar:2,Apr:3,May:4,Jun:5,Jul:6,Aug:7,Sep:8,Oct:9,Nov:10,Dec:11 };
+const _MON_NAMES = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const _DOW = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+
+function parseStopDays(stop) {
+  const m = stop.date.match(/(\w+)\s+(\d+)\s*[–-]\s*(\w+)\s+(\d+)/);
+  if (!m) return [];
+  const start = new Date(2026, _MONTHS[m[1]], +m[2]);
+  const end   = new Date(2026, _MONTHS[m[3]], +m[4]);
+  const days = [];
+  for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) days.push(new Date(d));
+  return days;
+}
+
+function dayKey(date) { return `${_MON_NAMES[date.getMonth()]} ${date.getDate()}`; }
+
+function extractEventDay(timeStr) {
+  if (!timeStr) return null;
+  const hits = [...timeStr.matchAll(/\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) (\d{1,2})\b/g)];
+  if (!hits.length) return null;
+  const last = hits[hits.length - 1];
+  return `${last[1]} ${last[2]}`;
+}
+
+function renderEventCard(ev) {
+  const thumb = ev.photo
+    ? `<img class="activity-thumb" src="${ev.photo}" alt="${ev.name}" loading="lazy" />`
+    : `<div class="activity-thumb activity-thumb-placeholder"><span>${ev.tag === "travel" ? "🚗" : "📅"}</span></div>`;
+  return `
+    <div class="activity-card">
+      ${thumb}
+      <div class="activity-info">
+        ${ev.time ? `<div class="activity-time">${ev.time}</div>` : ""}
+        <div class="activity-name">${ev.name}</div>
+        ${ev.detail ? `<div class="activity-detail">${ev.detail}</div>` : ""}
+        <div class="activity-footer">
+          <span class="event-tag tag-${ev.tag}">${capitalize(ev.tag)}</span>
+          ${ev.link ? `<a class="card-link" href="${ev.link}" target="_blank" rel="noopener">Visit website ↗</a>` : ""}
+        </div>
+      </div>
+    </div>`;
+}
 
 TRIP.stops.forEach((stop, i) => {
   const card = document.createElement("div");
@@ -326,32 +372,40 @@ TRIP.stops.forEach((stop, i) => {
       </div>
     </div>`;
 
-  // Doing
-  const activitiesHTML = stop.events.length
-    ? stop.events.map(ev => {
-        const thumb = ev.photo
-          ? `<img class="activity-thumb" src="${ev.photo}" alt="${ev.name}" loading="lazy" />`
-          : `<div class="activity-thumb activity-thumb-placeholder"><span>📅</span></div>`;
-        return `
-          <div class="activity-card">
-            ${thumb}
-            <div class="activity-info">
-              ${ev.time ? `<div class="activity-time">${ev.time}</div>` : ""}
-              <div class="activity-name">${ev.name}</div>
-              ${ev.detail ? `<div class="activity-detail">${ev.detail}</div>` : ""}
-              <div class="activity-footer">
-                <span class="event-tag tag-${ev.tag}">${capitalize(ev.tag)}</span>
-                ${ev.link ? `<a class="card-link" href="${ev.link}" target="_blank" rel="noopener">Visit website ↗</a>` : ""}
-              </div>
-            </div>
-          </div>`;
-      }).join("")
-    : `<div class="activity-tbd">Activities TBD</div>`;
+  // Doing — grouped by day
+  const stopDays = parseStopDays(stop);
+  const eventsByDay = {};
+  stop.events.forEach(ev => {
+    const key = extractEventDay(ev.time) || "__unassigned";
+    (eventsByDay[key] = eventsByDay[key] || []).push(ev);
+  });
+
+  const dayGroupsHTML = stopDays.map(d => {
+    const key = dayKey(d);
+    const dow = _DOW[d.getDay()];
+    const dayEvents = eventsByDay[key] || [];
+    const eventsHTML = dayEvents.length
+      ? dayEvents.map(renderEventCard).join("")
+      : `<div class="day-empty">Free day 🌿</div>`;
+    return `
+      <div class="day-group">
+        <div class="day-group-header">
+          <span class="day-group-dow">${dow}</span>
+          <span class="day-group-date">${key}</span>
+        </div>
+        <div class="day-group-events">${eventsHTML}</div>
+      </div>`;
+  }).join("");
+
+  const unassigned = (eventsByDay["__unassigned"] || []).map(renderEventCard).join("");
 
   const doingHTML = `
     <div class="stop-section">
       <div class="stop-section-label">Doing</div>
-      <div class="activity-list">${activitiesHTML}</div>
+      <div class="activity-list day-grouped">
+        ${dayGroupsHTML}
+        ${unassigned}
+      </div>
     </div>`;
 
   const transportHTML = stop.transport ? `
