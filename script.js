@@ -33,6 +33,8 @@ const TRIP = {
       arrival:   [{ date: "Jul 2", num: "UA 8015", route: "Austin → Vancouver",  time: "9:00 AM CDT" }],
       departure: [{ date: "Jul 5", num: "DL 8676", route: "Vancouver → Paris",   time: "1:10 PM PDT" }],
       events: [
+        { time: "6:40 AM (Thu Jul 2)", name: "🚗 Leave for AUS", detail: "UA 8015 departs 9:00 AM · 20 min drive · arrive airport 7:00 AM for 2-hr intl check-in", tag: "travel" },
+        { time: "6:30 PM (Thu Jul 2)", name: "🚗 Leave for BC Place", detail: "⚠️ Book Uber in advance — surge pricing on match nights · ~25 min to BC Place · arrive by 7:00 PM for 8:00 PM kickoff", tag: "travel" },
         {
           time: "8:00 PM (Jul 2)",
           name: "🏆 FIFA World Cup 2026 — Switzerland vs. Algeria",
@@ -40,6 +42,7 @@ const TRIP = {
           link: "https://www.fifa.com/en/match-centre/match/17/285023/289287/400021527",
           tag: "event",
         },
+        { time: "10:25 AM (Sun Jul 5)", name: "🚗 Leave for YVR", detail: "DL 8676 departs 1:10 PM PDT · ~45 min from North Vancouver to YVR · arrive 11:10 AM for 2-hr intl check-in", tag: "travel" },
       ],
     },
     {
@@ -75,6 +78,7 @@ const TRIP = {
           detail: "= 10am–2pm NYC",
           tag: "work",
         },
+        { time: "7:30 AM (Wed Jul 8)", name: "🚗 Leave for RAISE Summit", detail: "~30 min by Metro (Line 1 → Porte Maillot) or Uber · arrive by 8:00 AM", tag: "travel" },
         {
           time: "8:15 AM–7:00 PM (Wed Jul 8)",
           name: "RAISE Summit — Day 1",
@@ -82,6 +86,7 @@ const TRIP = {
           link: "https://www.raisesummit.com",
           tag: "event",
         },
+        { time: "7:45 AM (Thu Jul 9)", name: "🚗 Leave for RAISE Summit", detail: "~30 min by Metro or Uber · arrive by 8:15 AM", tag: "travel" },
         {
           time: "8:30 AM–7:15 PM (Thu Jul 9)",
           name: "RAISE Summit — Day 2",
@@ -89,6 +94,7 @@ const TRIP = {
           link: "https://www.raisesummit.com",
           tag: "event",
         },
+        { time: "6:30 PM (Thu Jul 9)", name: "🚗 Leave for Photo Session", detail: "~20–30 min depending on meeting point — confirm location with Jon in advance", tag: "travel" },
         {
           time: "7:00–8:15 PM (Thu Jul 9)",
           name: "Couple's Photo Session",
@@ -96,6 +102,7 @@ const TRIP = {
           link: "https://www.airbnb.com/experiences/252431",
           tag: "activity",
         },
+        { time: "9:30 PM (Thu Jul 9)", name: "🚗 Leave for Girafe", detail: "~25 min by Uber to Trocadéro (16th arr.)", tag: "travel" },
         {
           time: "10:00 PM (Thu Jul 9)",
           name: "Dinner at Girafe",
@@ -103,6 +110,7 @@ const TRIP = {
           link: "https://girafe-restaurant.com/paris/",
           tag: "food",
         },
+        { time: "4:35 AM (Fri Jul 10)", name: "🚗 Leave for CDG", detail: "LH 1051 departs 7:25 AM CEST · ~50 min by Uber to Charles de Gaulle · arrive 5:25 AM for 2-hr intl check-in · book night before", tag: "travel" },
       ],
     },
     {
@@ -167,6 +175,7 @@ const TRIP = {
           detail: "= 10am–2pm NYC",
           tag: "work",
         },
+        { time: "9:35 AM (Thu Jul 16)", name: "🚗 Leave for FNC", detail: "BA 2717 departs 12:20 PM WEST · ~45 min from Arco da Calheta to Funchal airport · arrive 10:20 AM for 2-hr intl check-in · drop rental car at airport", tag: "travel" },
       ],
     },
     {
@@ -191,6 +200,7 @@ const TRIP = {
         { date: "Jul 23", num: "VN 1835", route: "Ho Chi Minh City → Phu Quoc" },
       ],
       events: [
+        { time: "8:15 PM (Sat Jul 18)", name: "🚗 Leave for Evelyn's Table", detail: "~20 min by Uber or Piccadilly line → Green Park → Soho (28 Rupert St)", tag: "travel" },
         {
           time: "8:45 PM (Sat Jul 18)",
           name: "Dinner at Evelyn's Table",
@@ -210,11 +220,12 @@ const TRIP = {
           tag: "work",
         },
         {
-          time: "3:00–5:30 PM (Wed Jul 22)",
+          time: "3:00–3:30 PM (Wed Jul 22)",
           name: "NYC Teamwork Hours",
-          detail: "= 10am–12:30pm NYC · flight at 6:30pm",
+          detail: "= 10am–10:30am NYC · cut short — need to leave for LHR at 3:40 PM",
           tag: "work",
         },
+        { time: "3:40 PM (Wed Jul 22)", name: "🚗 Leave for LHR", detail: "TK 1972 departs 6:30 PM BST · ~50 min by Uber to Heathrow · arrive 4:30 PM for 2-hr intl check-in · ⚠️ book Uber in advance (surge likely)", tag: "travel" },
       ],
     },
     {
@@ -238,7 +249,9 @@ const TRIP = {
         { date: "Jul 23", num: "VN 1835", route: "Ho Chi Minh City → Phu Quoc" },
       ],
       departure: [{ date: "Jul 27", num: "9G 2962", route: "Phu Quoc → Da Nang" }],
-      events: [],
+      events: [
+        { time: "TBD (Jul 26/27)", name: "🚗 Leave for PQC Airport", detail: "9G 2962 departure time TBD · ~20 min from Melia Vinpearl to airport · update when flight time confirmed", tag: "travel" },
+      ],
     },
     {
       iso:  "2026-07-27T00:00:00+07:00",
