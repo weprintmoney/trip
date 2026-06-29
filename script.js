@@ -67,6 +67,7 @@ const TRIP = {
         { date: "Jul 10", num: "LH 4410", route: "Frankfurt → Madeira", time: "11:30 AM CEST" },
       ],
       events: [
+        { time: "1:10 PM (Sun Jul 5)", name: "✈️ DL 8676 — Vancouver → Paris", detail: "Overnight flight · ~9 hrs · departs YVR 1:10 PM PDT · lands CDG Mon Jul 6 at 7:50 AM CEST", tag: "travel" },
         { time: "7:50 AM (Mon Jul 6)", name: "✈️ Land at CDG", detail: "Collect bags → Uber to Hôtel du Louvre (~50–60 min, €50–70) · avoid RER with luggage · check-in from 3 PM — ask for early access", tag: "travel" },
         {
           time: "4:00–8:00 PM (Mon Jul 6)",
