@@ -827,6 +827,61 @@ function getCurrentLocation() {
   setInterval(tick, 1000);
 })();
 
+// ─── TRIP PROGRESS BAR ────────────────────────────────────────────────────
+
+(function initProgressBar() {
+  const fill = document.getElementById("trip-progress-fill");
+  if (!fill) return;
+  const start = new Date("2026-07-02T14:00:00Z").getTime();
+  const end   = new Date("2026-08-02T05:00:00Z").getTime();
+  function update() {
+    const pct = Math.min(100, Math.max(0, (Date.now() - start) / (end - start) * 100));
+    fill.style.width = pct.toFixed(3) + "%";
+  }
+  update();
+  setInterval(update, 60000);
+})();
+
+// ─── WEATHER ──────────────────────────────────────────────────────────────
+
+const CITY_COORDS = {
+  "Austin, TX":        { lat: 30.27,  lon: -97.74  },
+  "Vancouver, BC":     { lat: 49.25,  lon: -123.12 },
+  "Paris, France":     { lat: 48.86,  lon:   2.35  },
+  "Madeira, Portugal": { lat: 32.65,  lon: -16.91  },
+  "London, UK":        { lat: 51.51,  lon:  -0.13  },
+  "Phu Quoc, Vietnam": { lat: 10.22,  lon: 103.96  },
+  "Da Nang, Vietnam":  { lat: 16.05,  lon: 108.20  },
+};
+
+function wmoEmoji(code) {
+  if (code === 0)           return "☀️";
+  if (code <= 3)            return "⛅";
+  if (code <= 48)           return "🌫️";
+  if (code <= 57)           return "🌦️";
+  if (code <= 67)           return "🌧️";
+  if (code <= 77)           return "❄️";
+  if (code <= 82)           return "🌦️";
+  return "⛈️";
+}
+
+(async function initWeather() {
+  const el = document.getElementById("hero-weather");
+  if (!el) return;
+  const city = getCurrentLocation();
+  const coords = CITY_COORDS[city];
+  if (!coords) return;
+  try {
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${coords.lat}&longitude=${coords.lon}&current=temperature_2m,weathercode&daily=temperature_2m_max,temperature_2m_min&temperature_unit=fahrenheit&timezone=auto&forecast_days=1`;
+    const data = await fetch(url).then(r => r.json());
+    const temp = Math.round(data.current.temperature_2m);
+    const high = Math.round(data.daily.temperature_2m_max[0]);
+    const low  = Math.round(data.daily.temperature_2m_min[0]);
+    const icon = wmoEmoji(data.current.weathercode);
+    el.textContent = `${icon} ${temp}°F · H: ${high}° · L: ${low}°`;
+  } catch (e) { el.textContent = ""; }
+})();
+
 // ─── GLOBE ────────────────────────────────────────────────────────────────
 
 (async function initGlobe() {
@@ -944,7 +999,7 @@ function getCurrentLocation() {
 
   // Per-arc state machine: draw one arc → pause 3s at destination → next arc
   const ARC_MS       = 2200;  // ms to draw each arc
-  const STOP_PAUSE   = 3000;  // ms to hold at each stop
+  const STOP_PAUSE   = 1500;  // ms to hold at each stop
   const LOOP_PAUSE   = 1500;  // ms to hold at Austin before resetting
   let arcIdx      = 0;        // which arc is being drawn
   let phase       = 'drawing'; // 'drawing' | 'pausing'

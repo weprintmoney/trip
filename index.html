@@ -7,9 +7,13 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=15" />
+  <link rel="stylesheet" href="style.css?v=16" />
 </head>
 <body>
+  <!-- TRIP PROGRESS BAR -->
+  <div class="trip-progress-track">
+    <div class="trip-progress-fill" id="trip-progress-fill"></div>
+  </div>
 
   <!-- HERO -->
   <header class="hero">
@@ -22,6 +26,7 @@
       <!-- COUNTDOWN -->
       <div class="countdown-widget">
         <p class="hero-location" id="hero-location"></p>
+        <p class="hero-weather" id="hero-weather"></p>
         <p class="cd-label-text" id="cd-label">Next stop</p>
         <p class="cd-dest" id="cd-dest">🇨🇦 Vancouver, BC</p>
         <div class="cd-timer">
@@ -158,6 +163,6 @@
 
   <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
-  <script src="script.js?v=37"></script>
+  <script src="script.js?v=38"></script>
 </body>
 </html>
