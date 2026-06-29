@@ -753,9 +753,30 @@ const TIMESHIFTER = {
   }
 })();
 
+// ─── CURRENT LOCATION ─────────────────────────────────────────────────────
+// Windows keyed to landing times (UTC). "In Austin" until wheels down in Vancouver, etc.
+const LOCATION_TIMELINE = [
+  { until: "2026-07-02T18:27:00Z", label: "Austin, TX" },
+  { until: "2026-07-06T05:50:00Z", label: "Vancouver, BC" },
+  { until: "2026-07-10T13:45:00Z", label: "Paris, France" },
+  { until: "2026-07-16T16:00:00Z", label: "Madeira, Portugal" },
+  { until: "2026-07-23T14:30:00Z", label: "London, UK" },
+  { until: "2026-07-28T06:10:00Z", label: "Phu Quoc, Vietnam" },
+  { until: "2026-08-02T00:00:00Z", label: "Da Nang, Vietnam" },
+];
+
+function getCurrentLocation() {
+  const now = new Date();
+  for (const w of LOCATION_TIMELINE) {
+    if (now < new Date(w.until)) return w.label;
+  }
+  return "Austin, TX";
+}
+
 // ─── COUNTDOWN ────────────────────────────────────────────────────────────
 
 (function initCountdown() {
+  const locationEl = document.getElementById("hero-location");
   const labelEl = document.getElementById("cd-label");
   const destEl  = document.getElementById("cd-dest");
   const daysEl  = document.getElementById("cd-days");
@@ -763,6 +784,7 @@ const TIMESHIFTER = {
   const minsEl  = document.getElementById("cd-mins");
   const secsEl  = document.getElementById("cd-secs");
   if (!labelEl) return;
+  if (locationEl) locationEl.textContent = `Today, Charlcye is in ${getCurrentLocation()}`;
 
   const milestones = TRIP.stops
     .filter(s => s.iso)

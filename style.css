@@ -153,6 +153,14 @@ body {
   text-align: center;
 }
 
+.hero-location {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.6);
+  margin: 0 0 0.75rem;
+  letter-spacing: 0.01em;
+}
+
 .cd-label-text {
   font-size: 0.7rem;
   font-weight: 600;
