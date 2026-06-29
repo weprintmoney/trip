@@ -63,6 +63,18 @@ const TRIP = {
       ],
       events: [
         {
+          time: "4:00–8:00 PM (Mon Jul 6)",
+          name: "NYC Teamwork Hours",
+          detail: "= 10am–2pm NYC",
+          tag: "work",
+        },
+        {
+          time: "4:00–8:00 PM (Tue Jul 7)",
+          name: "NYC Teamwork Hours",
+          detail: "= 10am–2pm NYC",
+          tag: "work",
+        },
+        {
           time: "8:15 AM–7:00 PM (Wed Jul 8)",
           name: "RAISE Summit — Day 1",
           detail: "Master Stage · Grace Hopper · Paris<br>Mark Cuban × Anton Osika · Paolo Guglielmini (NVIDIA) · Ramin Hasani (Liquid AI) · Ion Stoica · Jordan Topoleski (Cursor) · Scott Wu (Cognition) · Guillaume Princen (Anthropic) · Pat Gelsinger · ALL IN Podcast Live",
@@ -121,6 +133,12 @@ const TRIP = {
           tag: "food",
         },
         {
+          time: "3:00–7:00 PM (Mon Jul 13)",
+          name: "NYC Teamwork Hours",
+          detail: "= 10am–2pm NYC",
+          tag: "work",
+        },
+        {
           time: "6:00 AM–1:00 PM (Tue Jul 14)",
           name: "Sunrise Tour of Madeira",
           detail: "Sunrise in secret spots off the tourist path · Hiking mountain peaks · Chasing waterfalls through ancient forest · Walking century-old village paths",
@@ -135,6 +153,18 @@ const TRIP = {
           photo: "images/madeira-catamaran.avif",
           link: "https://www.airbnb.com/experiences/780563",
           tag: "activity",
+        },
+        {
+          time: "3:00–6:30 PM (Tue Jul 14)",
+          name: "NYC Teamwork Hours",
+          detail: "= 10am–1:30pm NYC · before catamaran",
+          tag: "work",
+        },
+        {
+          time: "3:00–7:00 PM (Wed Jul 15)",
+          name: "NYC Teamwork Hours",
+          detail: "= 10am–2pm NYC",
+          tag: "work",
         },
       ],
     },
@@ -164,6 +194,24 @@ const TRIP = {
           name: "Dinner at Evelyn's Table",
           link: "https://www.theblueposts.co.uk/evelyns-table/",
           tag: "food",
+        },
+        {
+          time: "3:00–7:00 PM (Mon Jul 20)",
+          name: "NYC Teamwork Hours",
+          detail: "= 10am–2pm NYC",
+          tag: "work",
+        },
+        {
+          time: "3:00–7:00 PM (Tue Jul 21)",
+          name: "NYC Teamwork Hours",
+          detail: "= 10am–2pm NYC",
+          tag: "work",
+        },
+        {
+          time: "3:00–5:30 PM (Wed Jul 22)",
+          name: "NYC Teamwork Hours",
+          detail: "= 10am–12:30pm NYC · flight at 6:30pm",
+          tag: "work",
         },
       ],
     },

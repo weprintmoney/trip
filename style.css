@@ -483,6 +483,7 @@ body {
 .tag-lodging { background: rgba(248,113,113,0.15); color: #f87171; }
 .tag-free { background: rgba(148,163,184,0.15); color: #94a3b8; }
 .tag-event { background: rgba(251,191,36,0.15); color: #fbbf24; }
+.tag-work  { background: rgba(56,189,248,0.15);  color: #38bdf8; }
 
 /* ─── Card sections ─── */
 .stop-section {
