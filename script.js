@@ -30,10 +30,11 @@ const TRIP = {
         mode: "Rental car recommended",
         rec: "North Vancouver is residential and spread out — a car gives you flexibility to reach BC Place for the match, explore Cypress Mountain, and skip the SeaBus + bus combo. Pick up at YVR on arrival.",
       },
-      arrival:   [{ date: "Jul 2", num: "UA 8015", route: "Austin → Vancouver",  time: "9:00 AM CDT" }],
+      arrival:   [{ date: "Jul 2", num: "UA 8015", route: "Austin → Vancouver",  time: "11:27 AM PDT" }],
       departure: [{ date: "Jul 5", num: "DL 8676", route: "Vancouver → Paris",   time: "1:10 PM PDT" }],
       events: [
         { time: "6:40 AM (Thu Jul 2)", name: "🚗 Leave for AUS", detail: "UA 8015 departs 9:00 AM · 20 min drive · arrive airport 7:00 AM for 2-hr intl check-in", tag: "travel" },
+        { time: "11:27 AM (Thu Jul 2)", name: "✈️ Land at YVR", detail: "Collect bags → pick up rental car → ~45 min drive to 2820 Panorama Drive, North Vancouver", tag: "travel" },
         { time: "6:30 PM (Thu Jul 2)", name: "🚗 Leave for BC Place", detail: "⚠️ Book Uber in advance — surge pricing on match nights · ~25 min to BC Place · arrive by 7:00 PM for 8:00 PM kickoff", tag: "travel" },
         {
           time: "8:00 PM (Jul 2)",
@@ -60,12 +61,13 @@ const TRIP = {
         mode: "Metro + Uber",
         rec: "No car needed. Hôtel du Louvre is steps from Palais-Royal and Metro lines 1 & 7. RAISE Summit venues are Metro-accessible. Use Uber for late-night returns or luggage days.",
       },
-      arrival:   [{ date: "Jul 5",  num: "DL 8676", route: "Vancouver → Paris",  time: "1:10 PM PDT" }],
+      arrival:   [{ date: "Jul 6",  num: "DL 8676", route: "Vancouver → Paris",  time: "7:50 AM CEST" }],
       departure: [
         { date: "Jul 10", num: "LH 1051", route: "Paris → Frankfurt",  time: "7:25 AM CEST" },
-        { date: "Jul 10", num: "LH 4410", route: "Frankfurt → Madeira" },
+        { date: "Jul 10", num: "LH 4410", route: "Frankfurt → Madeira", time: "11:30 AM CEST" },
       ],
       events: [
+        { time: "7:50 AM (Mon Jul 6)", name: "✈️ Land at CDG", detail: "Collect bags → Uber to Hôtel du Louvre (~50–60 min, €50–70) · avoid RER with luggage · check-in from 3 PM — ask for early access", tag: "travel" },
         {
           time: "4:00–8:00 PM (Mon Jul 6)",
           name: "NYC Teamwork Hours",
@@ -129,11 +131,12 @@ const TRIP = {
         rec: "Arco da Calheta is on the rural western coast — buses are infrequent and taxis from Funchal are €30+ each way. Rent at FNC airport on arrival. Roads are narrow and hilly but manageable, and worth it for the freedom.",
       },
       arrival: [
-        { date: "Jul 10", num: "LH 1051", route: "Paris → Frankfurt",  time: "7:25 AM CEST" },
-        { date: "Jul 10", num: "LH 4410", route: "Frankfurt → Madeira" },
+        { date: "Jul 10", num: "LH 1051", route: "Paris → Frankfurt",   time: "8:40 AM CEST" },
+        { date: "Jul 10", num: "LH 4410", route: "Frankfurt → Madeira", time: "2:45 PM WEST" },
       ],
-      departure: [{ date: "Jul 16", num: "BA 2717", route: "Funchal → London",   time: "12:20 PM WEST" }],
+      departure: [{ date: "Jul 16", num: "BA 2717", route: "Funchal → London",   time: "1:15 PM WEST" }],
       events: [
+        { time: "2:45 PM (Fri Jul 10)", name: "✈️ Land at FNC", detail: "Pick up rental car → ~45 min drive west on Via Rápida to Arco da Calheta", tag: "travel" },
         { time: "3:00 PM (Fri Jul 10)",      name: "Check-in",             tag: "lodging" },
         { time: "6:00–7:00 PM (Fri Jul 10)", name: "Massage at the house", photo: "images/madeira-massage.avif", link: "https://www.airbnb.com/services/6961430", tag: "activity" },
         {
@@ -175,7 +178,7 @@ const TRIP = {
           detail: "= 10am–2pm NYC",
           tag: "work",
         },
-        { time: "9:35 AM (Thu Jul 16)", name: "🚗 Leave for FNC", detail: "BA 2717 departs 12:20 PM WEST · ~45 min from Arco da Calheta to Funchal airport · arrive 10:20 AM for 2-hr intl check-in · drop rental car at airport", tag: "travel" },
+        { time: "10:30 AM (Thu Jul 16)", name: "🚗 Leave for FNC", detail: "BA 2717 departs 1:15 PM WEST · ~45 min from Arco da Calheta to Funchal airport · arrive 11:15 AM for 2-hr intl check-in · drop rental car at airport", tag: "travel" },
       ],
     },
     {
@@ -193,13 +196,14 @@ const TRIP = {
         mode: "Underground + Uber",
         rec: "Hyde Park Corner station (Piccadilly line) is 2 minutes from the hotel. No car needed — congestion charges and parking make driving miserable in central London. Uber for late nights and airport transfers.",
       },
-      arrival:   [{ date: "Jul 16", num: "BA 2717", route: "Funchal → London",          time: "12:20 PM WEST" }],
+      arrival:   [{ date: "Jul 16", num: "BA 2717", route: "Funchal → London",          time: "5:00 PM BST" }],
       departure: [
         { date: "Jul 22", num: "TK 1972", route: "London → Istanbul",            time: "6:30 PM BST" },
-        { date: "Jul 22", num: "TK 162",  route: "Istanbul → Ho Chi Minh City" },
-        { date: "Jul 23", num: "VN 1835", route: "Ho Chi Minh City → Phu Quoc" },
+        { date: "Jul 23", num: "TK 162",  route: "Istanbul → Ho Chi Minh City",  time: "1:50 AM TRT" },
+        { date: "Jul 23", num: "VN 1835", route: "Ho Chi Minh City → Phu Quoc", time: "8:30 PM ICT" },
       ],
       events: [
+        { time: "5:00 PM (Thu Jul 16)", name: "✈️ Land at LHR", detail: "Heathrow Express to Paddington (~15 min) + Uber to Mandarin Oriental (~20 min), or direct Uber (~55 min, £70–90)", tag: "travel" },
         { time: "8:15 PM (Sat Jul 18)", name: "🚗 Leave for Evelyn's Table", detail: "~20 min by Uber or Piccadilly line → Green Park → Soho (28 Rupert St)", tag: "travel" },
         {
           time: "8:45 PM (Sat Jul 18)",
@@ -229,8 +233,8 @@ const TRIP = {
       ],
     },
     {
-      iso:  "2026-07-22T18:30:00+01:00",
-      date: "Jul 23 – Jul 27 · 4 days",
+      iso:  "2026-07-28T11:25:00+07:00",
+      date: "Jul 23 – Jul 28 · 5 days",
       title: "Phu Quoc, Vietnam",
       flag: "🇻🇳",
       blurb: "Vietnam's largest island, off the southwestern coast. Known for white-sand beaches, clear turquoise water, and an unhurried resort pace. July is lush and green — occasional rain, always warm.",
@@ -244,18 +248,19 @@ const TRIP = {
         rec: "Book airport transfer through your accommodation. Grab works in parts of Phu Quoc Town — supplement with your hotel's driver for day trips or beach clubs. A scooter rental (~$8/day) gives full freedom if you're comfortable riding.",
       },
       arrival: [
-        { date: "Jul 22", num: "TK 1972", route: "London → Istanbul" },
-        { date: "Jul 22", num: "TK 162",  route: "Istanbul → Ho Chi Minh City" },
-        { date: "Jul 23", num: "VN 1835", route: "Ho Chi Minh City → Phu Quoc" },
+        { date: "Jul 22", num: "TK 1972", route: "London → Istanbul",            time: "12:15 AM TRT" },
+        { date: "Jul 23", num: "TK 162",  route: "Istanbul → Ho Chi Minh City",  time: "4:10 PM ICT" },
+        { date: "Jul 23", num: "VN 1835", route: "Ho Chi Minh City → Phu Quoc", time: "9:30 PM ICT" },
       ],
-      departure: [{ date: "Jul 27", num: "9G 2962", route: "Phu Quoc → Da Nang" }],
+      departure: [{ date: "Jul 28", num: "9G 2962", route: "Phu Quoc → Da Nang", time: "11:25 AM ICT" }],
       events: [
-        { time: "TBD (Jul 26/27)", name: "🚗 Leave for PQC Airport", detail: "9G 2962 departure time TBD · ~20 min from Melia Vinpearl to airport · update when flight time confirmed", tag: "travel" },
+        { time: "9:30 PM (Thu Jul 23)", name: "✈️ Land at PQC", detail: "Pre-book hotel transfer with Melia (~20 min) · confirm in advance — arriving late evening", tag: "travel" },
+        { time: "10:05 AM (Tue Jul 28)", name: "🚗 Leave for PQC Airport", detail: "9G 2962 departs 11:25 AM ICT · ~20 min from Melia Vinpearl · arrive 10:25 AM for 1-hr domestic check-in", tag: "travel" },
       ],
     },
     {
-      iso:  "2026-07-27T00:00:00+07:00",
-      date: "Jul 27 – Aug 1 · 5 days",
+      iso:  "2026-07-28T11:25:00+07:00",
+      date: "Jul 28 – Aug 1 · 4 days",
       title: "Da Nang, Vietnam",
       flag: "🇻🇳",
       blurb: "A coastal city in central Vietnam, flanked by the ancient town of Hội An to the south and the Marble Mountains to the north. Long sandy beaches, modern bridges, and a city that moves fast.",
@@ -267,9 +272,11 @@ const TRIP = {
         mode: "Grab + day driver",
         rec: "Grab is cheap and reliable throughout Da Nang. For Hội An (~30 min south), hire a Grab car or a day driver (~$25 round trip). If you want full flexibility, rent a motorbike — roads between Da Nang and Hội An are straightforward.",
       },
-      arrival:   [{ date: "Jul 27", num: "9G 2962", route: "Phu Quoc → Da Nang" }],
+      arrival:   [{ date: "Jul 28", num: "9G 2962", route: "Phu Quoc → Da Nang", time: "1:10 PM ICT" }],
       departure: [{ date: "Aug 1",  num: null,       route: "Da Nang → Austin (home)" }],
-      events: [],
+      events: [
+        { time: "1:10 PM (Tue Jul 28)", name: "✈️ Land at DAD", detail: "Grab or have Tye arrange pickup to the residence (~15–20 min)", tag: "travel" },
+      ],
     },
   ],
 };
